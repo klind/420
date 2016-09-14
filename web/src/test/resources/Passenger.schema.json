@@ -1,0 +1,61 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "title": "Passenger",
+  "description": "GET Response from /passengers/{passengerId}",
+  "type": "array",
+  "suspensions" : {
+    "type" : "object",
+    "properties" : {
+      "id" : {
+        "type" : "number"
+      },
+      "employeeId" : {
+        "type" : "string"
+      },
+      "firstName" : {
+        "type" : "string"
+      },
+      "middleName" : {
+        "type" : "string"
+      },
+      "lastName" : {
+        "type" : "string"
+      },
+      "gender" : {
+        "type" : "string"
+      },
+      "relationship" : {
+        "type" : "object",
+        "properties" : {
+          "id" : {
+            "type" : "number"
+          },
+          "value" : {
+            "type" : "string",
+            "enum": ["PA", "CH", "SP", "DP", "TC"]
+          },
+          "description" : {
+            "type" : "string"
+          }
+        }
+      },
+      "dob" : {
+        "type" : "string",
+        "pattern": "/^\\d\\d\\d\\d-(\\d)?\\d-(\\d)?\\d$"
+      },
+      "phone" : {
+        "type" : "number"
+      },
+      "verified" : {
+        "type" : "boolean"
+      },
+      "reAddress" : {
+        "type" : "string"
+      },
+      "knownTravelerNumber" : {
+        "type" : "string"
+      }
+    }
+  },
+  "required": ["id", "lastName"]
+}

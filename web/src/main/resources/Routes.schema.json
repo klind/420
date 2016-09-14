@@ -1,0 +1,52 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "title": "Routes",
+  "description": "GET Response from routes call.",
+  "type": "array",
+  "routes": {
+    "type": "object",
+    "properties": {
+      "connections": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "code": {
+              "type": "string"
+            },
+            "displayName": {
+              "type": "string"
+            },
+            "title": {
+              "type": "string"
+            },
+            "locationId": {
+              "type": "integer"
+            },
+            "marketId": {
+              "type": "integer"
+            },
+            "validTo": {
+              "type": "string"
+            },
+            "validFrom": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "code": {
+        "type": "string"
+      },
+      "displayName": {
+        "type": "string"
+      },
+      "title": {
+        "type": "string"
+      },
+      "locationId": {
+        "type": "integer"
+      }
+    }
+  }
+}

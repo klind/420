@@ -1,0 +1,11 @@
+<module xmlns="urn:jboss:module:1.0" name="com.p6spy">
+    <resources>
+        <resource-root path="p6spy-2.1.4.jar"/>
+    </resources>
+    <dependencies>
+        <module name="javax.api"/>
+        <module name="javax.transaction.api"/>
+        <!-- make sure to refer to module holding real driver -->
+        <module name="com.mysql.connectorj"/>
+    </dependencies>
+</module>

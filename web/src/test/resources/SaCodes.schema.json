@@ -1,0 +1,24 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "title": "SA Codes",
+  "description": "GET Response from /sacodes",
+  "type": "array",
+  "sacodes": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "number"
+      },
+      "saCode": {
+        "type": "string"
+      },
+      "description": {
+        "type": "string"
+      },
+      "active": {
+        "type": "boolean",
+        "required": true
+      }
+    }
+  }
+}

@@ -1,0 +1,72 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "title": "Suspensions By Employee ID",
+  "description": "GET Response from /employees/{employeeId}/suspensions",
+  "type": "array",
+  "suspensions": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "number"
+      },
+      "begin": {
+        "type": "any"
+      },
+      "end": {
+        "type": "any"
+      },
+      "suspensionType": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "number"
+          },
+          "value": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          }
+        }
+      },
+      "comments": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "number"
+            },
+            "suspensionId": {
+              "type": "number"
+            },
+            "comment": {
+              "type": "string"
+            },
+            "created": {
+              "type": "any"
+            },
+            "userid": {
+              "type": "string"
+            },
+            "username": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "employeeId": {
+        "type": "string"
+      },
+      "created": {
+        "type": "number"
+      },
+      "userid": {
+        "type": "string"
+      },
+      "username": {
+        "type": "string"
+      }
+    }
+  }
+}

@@ -1,0 +1,439 @@
+{
+  "type" : "object",
+  "properties" : {
+    "responseStatusDto" : {
+      "type" : "object",
+      "properties" : {
+        "warnings" : {
+          "type" : "array",
+          "items" : {
+            "type" : "object",
+            "properties" : {
+              "code" : {
+                "type" : "string"
+              },
+              "message" : {
+                "type" : "string"
+              }
+            }
+          }
+        },
+        "errors" : {
+          "type" : "array",
+          "items" : {
+            "type" : "object",
+            "properties" : {
+              "code" : {
+                "type" : "string"
+              },
+              "message" : {
+                "type" : "string"
+              }
+            }
+          }
+        }
+      }
+    },
+    "reservations" : {
+      "type" : "array",
+      "items" : {
+        "type" : "object",
+        "properties" : {
+          "company" : {
+            "type" : "string"
+          },
+          "itinerary" : {
+            "type" : "string"
+          },
+          "departDate" : {
+            "type" : "string"
+          },
+          "returnDate" : {
+            "type" : "string"
+          },
+          "status" : {
+            "type" : "string"
+          },
+          "bookedBy" : {
+            "type" : "string"
+          },
+          "agent" : {
+            "type" : "string"
+          },
+          "paxCount" : {
+            "type" : "integer"
+          },
+          "market" : {
+            "type" : "string"
+          },
+          "comments" : {
+            "type" : "string"
+          },
+          "bookingType" : {
+            "type" : "string"
+          },
+          "groupName" : {
+            "type" : "string"
+          },
+          "customerNumber" : {
+            "type" : "string"
+          },
+          "paidAmount" : {
+            "type" : "number"
+          },
+          "paidDate" : {
+            "type" : "string"
+          },
+          "bookedDate" : {
+            "type" : "string"
+          },
+          "bookTime" : {
+            "type" : "string"
+          },
+          "bookStatus" : {
+            "type" : "string"
+          },
+          "cancelCode" : {
+            "type" : "string"
+          },
+          "cancelledBy" : {
+            "type" : "string"
+          },
+          "cancelDate" : {
+            "type" : "string"
+          },
+          "travelProtection" : {
+            "type" : "string"
+          },
+          "travelProtectionTotal" : {
+            "type" : "number"
+          },
+          "convenienceFeeTotal" : {
+            "type" : "number"
+          },
+          "fax" : {
+            "type" : "string"
+          },
+          "email" : {
+            "type" : "string"
+          },
+          "guestName" : {
+            "type" : "string"
+          },
+          "childCount" : {
+            "type" : "integer"
+          },
+          "itineraryTotal" : {
+            "type" : "number"
+          },
+          "balanceDue" : {
+            "type" : "number"
+          },
+          "phone1" : {
+            "type" : "string"
+          },
+          "phone1Type" : {
+            "type" : "string"
+          },
+          "phone2" : {
+            "type" : "string"
+          },
+          "phone2Type" : {
+            "type" : "string"
+          },
+          "holdDate" : {
+            "type" : "string"
+          },
+          "reservationPayment" : {
+            "type" : "object",
+            "properties" : {
+              "paymentType" : {
+                "type" : "string"
+              },
+              "paymentAmount" : {
+                "type" : "number"
+              },
+              "cardName" : {
+                "type" : "string"
+              },
+              "cardNumber" : {
+                "type" : "string"
+              },
+              "cardCvv" : {
+                "type" : "string"
+              },
+              "cardAddress" : {
+                "type" : "string"
+              },
+              "cardCity" : {
+                "type" : "string"
+              },
+              "cardState" : {
+                "type" : "string"
+              },
+              "cardZipCode" : {
+                "type" : "string"
+              },
+              "cardPhone" : {
+                "type" : "string"
+              },
+              "cardExpireDate" : {
+                "type" : "string"
+              },
+              "authorizationCode" : {
+                "type" : "string"
+              },
+              "authorizationDate" : {
+                "type" : "string"
+              }
+            }
+          },
+          "passengerSegments" : {
+            "type" : "array",
+            "items" : {
+              "type" : "object",
+              "properties" : {
+                "company" : {
+                  "type" : "string"
+                },
+                "itinerary" : {
+                  "type" : "string"
+                },
+                "segment" : {
+                  "type" : "string"
+                },
+                "ind" : {
+                  "type" : "string"
+                },
+                "paxNum" : {
+                  "type" : "string"
+                },
+                "departureDate" : {
+                  "type" : "string"
+                },
+                "origin" : {
+                  "type" : "string"
+                },
+                "destination" : {
+                  "type" : "string"
+                },
+                "flightNumber" : {
+                  "type" : "string"
+                },
+                "leg" : {
+                  "type" : "string"
+                },
+                "finalDestination" : {
+                  "type" : "string"
+                },
+                "paxType" : {
+                  "type" : "string"
+                },
+                "status" : {
+                  "type" : "string"
+                },
+                "revenueType" : {
+                  "type" : "string"
+                },
+                "fareClassCode" : {
+                  "type" : "string"
+                },
+                "fare" : {
+                  "type" : "number"
+                },
+                "flightFees" : {
+                  "type" : "array",
+                  "items" : {
+                    "type" : "object",
+                    "properties" : {
+                      "type" : {
+                        "type" : "integer"
+                      },
+                      "code" : {
+                        "type" : "string"
+                      },
+                      "description" : {
+                        "type" : "string"
+                      },
+                      "value" : {
+                        "type" : "number"
+                      }
+                    }
+                  }
+                },
+                "country" : {
+                  "type" : "string"
+                },
+                "checkedIn" : {
+                  "type" : "string"
+                },
+                "bookTime" : {
+                  "type" : "string"
+                },
+                "checkInTime" : {
+                  "type" : "string"
+                },
+                "departDateAndTime" : {
+                  "type" : "string"
+                },
+                "arriveDateAndTime" : {
+                  "type" : "string"
+                },
+                "boardType" : {
+                  "type" : "string"
+                },
+                "onboard" : {
+                  "type" : "string"
+                },
+                "dhsTransaction" : {
+                  "type" : "string"
+                },
+                "passengerInformation" : {
+                  "type" : "object",
+                  "properties" : {
+                    "firstName" : {
+                      "type" : "string"
+                    },
+                    "middleName" : {
+                      "type" : "string"
+                    },
+                    "lastName" : {
+                      "type" : "string"
+                    },
+                    "dateOfBirth" : {
+                      "type" : "string"
+                    },
+                    "gender" : {
+                      "type" : "string"
+                    },
+                    "passengerIdentification" : {
+                      "type" : "object",
+                      "properties" : {
+                        "travelDocuments" : {
+                          "type" : "array",
+                          "items" : {
+                            "type" : "object",
+                            "properties" : {
+                              "idType" : {
+                                "type" : "string"
+                              },
+                              "expireDate" : {
+                                "type" : "string"
+                              },
+                              "country" : {
+                                "type" : "string"
+                              }
+                            }
+                          }
+                        },
+                        "knownTraveller" : {
+                          "type" : "string"
+                        },
+                        "redressNumber" : {
+                          "type" : "string"
+                        }
+                      }
+                    },
+                    "infantTravelers" : {
+                      "type" : "array",
+                      "items" : {
+                        "type" : "object",
+                        "properties" : {
+                          "firstName" : {
+                            "type" : "string"
+                          },
+                          "middleName" : {
+                            "type" : "string"
+                          },
+                          "lastName" : {
+                            "type" : "string"
+                          },
+                          "dateOfBirth" : {
+                            "type" : "string"
+                          },
+                          "travelDocuments" : {
+                            "type" : "array",
+                            "items" : {
+                              "type" : "object",
+                              "properties" : {
+                                "idType" : {
+                                  "type" : "string"
+                                },
+                                "expireDate" : {
+                                  "type" : "string"
+                                },
+                                "country" : {
+                                  "type" : "string"
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "passengerSeat" : {
+                  "type" : "object",
+                  "properties" : {
+                    "seat" : {
+                      "type" : "string"
+                    },
+                    "seatFee" : {
+                      "type" : "number"
+                    }
+                  }
+                },
+                "passengerPriorityAccess" : {
+                  "type" : "object",
+                  "properties" : {
+                    "feeAmount" : {
+                      "type" : "number"
+                    }
+                  }
+                },
+                "passengerSSRs" : {
+                  "type" : "array",
+                  "items" : {
+                    "type" : "object",
+                    "properties" : {
+                      "code" : {
+                        "type" : "string"
+                      },
+                      "feeAmount" : {
+                        "type" : "number"
+                      }
+                    }
+                  }
+                },
+                "passengerBags" : {
+                  "type" : "array",
+                  "items" : {
+                    "type" : "object",
+                    "properties" : {
+                      "type" : {
+                        "type" : "string"
+                      },
+                      "count" : {
+                        "type" : "integer"
+                      },
+                      "feeAmount" : {
+                        "type" : "number"
+                      },
+                      "bagTags" : {
+                        "type" : "array",
+                        "items" : {
+                          "type" : "string"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
