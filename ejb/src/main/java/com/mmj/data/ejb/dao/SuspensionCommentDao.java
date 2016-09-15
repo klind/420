@@ -1,7 +1,7 @@
 package com.mmj.data.ejb.dao;
 
-import com.mmj.data.core.exception.SystemException;
 import com.mmj.data.core.exception.NotFoundException;
+import com.mmj.data.core.exception.SystemException;
 import com.mmj.data.ejb.model.SuspensionCommentEN;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

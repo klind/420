@@ -1,6 +1,5 @@
 package com.mmj.data.ejb.session;
 
-import com.mmj.data.core.exception.BusinessException;
 import com.mmj.data.client.dto.EmployeeMyIDTravelDTO;
 import com.mmj.data.core.dto.entity.AccessConfigurationDTO;
 import com.mmj.data.core.dto.entity.EmployeeAuditDTO;
@@ -18,6 +17,7 @@ import com.mmj.data.core.enums.EmployeeTypeEnum;
 import com.mmj.data.core.enums.SuspensionTypeEnum;
 import com.mmj.data.core.enums.SystemConfigurationEnum;
 import com.mmj.data.core.exception.AlreadyExistsException;
+import com.mmj.data.core.exception.BusinessException;
 import com.mmj.data.core.exception.NotFoundException;
 import com.mmj.data.core.extclient.dto.ReservationDto;
 import com.mmj.data.core.flights.FlightsService;

@@ -1,7 +1,7 @@
 package com.mmj.data.core.dto.entity;
 
-import com.mmj.data.core.constant.Constants;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.mmj.data.core.constant.Constants;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;

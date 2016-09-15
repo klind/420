@@ -2,16 +2,13 @@
 <persistence version="2.0"
              xmlns="http://java.sun.com/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
              xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd">
-<persistence-unit name="g4tc">
+<persistence-unit name="mmj">
     <provider>org.hibernate.ejb.HibernatePersistence</provider>
-    <!--<jta-data-source>java:/datasources/g4TravelCenterTestDS</jta-data-source>-->
-    <!--<jta-data-source>java:/datasources/g4-travelcenter/ota</jta-data-source>-->
     <jta-data-source>java:/datasources/mmj/ota</jta-data-source>
-    <!--<jta-data-source>java:/datasources/g4TravelCenterSpyDS</jta-data-source>-->
-    <jar-file>g4tc-ejb.jar</jar-file>
+    <jar-file>mmj-ejb.jar</jar-file>
     <properties>
         <property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect"/>
-        <property name="hibernate.hbm2ddl.auto" value="create"/>
+        <property name="hibernate.hbm2ddl.auto" value="validate"/>
         <property name="hibernate.show_sql" value="fasle"/>
     </properties>
 </persistence-unit>

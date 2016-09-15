@@ -1,6 +1,5 @@
 package com.mmj.data.web.webservice;
 
-import com.mmj.data.core.exception.BusinessException;
 import com.mmj.data.client.dto.EmployeeMyIDTravelDTO;
 import com.mmj.data.core.dto.entity.AccessConfigurationDTO;
 import com.mmj.data.core.dto.entity.ConfigurationDTO;
@@ -22,6 +21,7 @@ import com.mmj.data.core.dto.ws.WaitlistPassengerDTO;
 import com.mmj.data.core.dto.ws.WaitlistRequestDTO;
 import com.mmj.data.core.enums.SACodeEnum;
 import com.mmj.data.core.enums.SystemConfigurationEnum;
+import com.mmj.data.core.exception.BusinessException;
 import com.mmj.data.core.exception.LimitReachException;
 import com.mmj.data.core.exception.NotAuthorizedTravelException;
 import com.mmj.data.core.exception.NotFoundException;

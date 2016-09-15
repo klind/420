@@ -1,54 +1,183 @@
-package com.mmj.data.core.dto.entity;
+package com.mmj.data.ejb.model2;
 
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.mmj.data.core.serializer.BooleanDeserializer;
+import org.hibernate.validator.constraints.Length;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.Date;
 
-public class ProfileDTO implements Serializable {
+@Entity
+@Table(name = "profile")
+public class ProfileEN implements Serializable {
     private static final long serialVersionUID = 1L;
 
+    @Id
+    @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @Column(name = "email", length = 50)
+    @Length(min = 5, max = 50)
+    @NotNull
     private String email;
+
+    @Column(name = "first_name", length = 30)
+    @Length(min = 2, max = 30)
+    @NotNull
     private String firstName;
+
+    @Column(name = "middle_name", length = 30)
+    @Length(min = 0, max = 30)
     private String middleName;
+
+    @Column(name = "last_name", length = 30)
+    @Length(min = 1, max = 30)
+    @NotNull
     private String lastName;
+
+    @Temporal(TemporalType.DATE)
+    @NotNull
     private Date dob;
+
+    @Column(name = "phone", length = 30)
+    //@NotNull
     private String phone;
+
+    @Column(name = "gender", length = 1)
+    @NotNull
     private String gender;
+
+    @NotNull
     private int weight;
-    @JsonDeserialize(using = BooleanDeserializer.class)
-    private Boolean onPrescriptionMeds;
-    @JsonDeserialize(using = BooleanDeserializer.class)
-    private Boolean vegetarian;
-    private int avgOunceMeatDay;
-    private int avgSexWeek;
-    private int avgHoursSweatWeek;
-    private int avgOuncePotThcWeek;
-    @JsonDeserialize(using = BooleanDeserializer.class)
-    private Boolean preferSalivas;
-    @JsonDeserialize(using = BooleanDeserializer.class)
-    private Boolean children;
-    @JsonDeserialize(using = BooleanDeserializer.class)
-    private Boolean geneticItems;
+
+    private BigDecimal score;
+
+    @Column(name = "on_prescription_meds", columnDefinition = "BIT", length = 1)
+    @NotNull
     /**
-     * 1 = hot
-     * 2 = cold
-     * 3 = normal
+     * are you on prescription meds? y= time broadens by 10%
+     */
+    private Boolean onPrescriptionMeds;
+
+    @Column(columnDefinition = "BIT", length = 1)
+    @NotNull
+    /**
+     * are you a vegetarian = if Y=time shrinks by 10%
+     */
+    private Boolean vegetarian;
+
+    @Column(name = "avg_ounce_meat_day")
+    @NotNull
+    /**
+     * avg ounces of meat consumed daily 16+oz = time increases by 10%
+     */
+    private int avgOunceMeatDay;
+
+    @Column(name = "avg_sex_week")
+    @NotNull
+    /**
+     * average # of sexual release/week - move than 4 = time decreases by 10%
+     */
+    private int avgSexWeek;
+
+    @Column(name = "avg_hours_sweat_week")
+    @NotNull
+    /**
+     * avg hours of exercise to a sweat each week - more than 2 hours= time decreases by 15%
+     */
+    private int avgHoursSweatWeek;
+
+    @Column(name = "avg_ounce_pot_thc_week")
+    @NotNull
+    /**
+     * avg amount (in ounces) of Pot/THC you consume weekly - over 1/2oz time decreases by 10%
+     */
+    private int avgOuncePotThcWeek;
+
+    @Column(name = "prefer_salivas", columnDefinition = "BIT", length = 1)
+    @NotNull
+
+    /**
+     * do you typically prefer indices or salivas or hybrid (i don’t know = 0) - no weight, just informational - no part of calculation
+     */
+    private Boolean preferSalivas;
+
+    @Column(columnDefinition = "BIT", length = 1)
+    @NotNull
+    /**
+     * do you have children? - for Men, this doesn’t get calculated, for women it does.  if =y time decreases by 10%
+     */
+    private Boolean children;
+
+    @Column(name = "generic_items", columnDefinition = "BIT", length = 1)
+    @NotNull
+    /**
+     * any genetic items that affect metabolism? - no weight or calculation, for informational collection purposes
+     */
+    private Boolean geneticItems;
+
+    @Column(name = "hot_cold_normal")
+    @NotNull
+    /**
+     * are you generally hot/cold/normal - for hot or cold, time increases by 10%
      */
     private int hotColdNormal;
-    @JsonDeserialize(using = BooleanDeserializer.class)
+
+    @Column(name = "use_nicotine", columnDefinition = "BIT", length = 1)
+    @NotNull
+    /**
+     * Do you use nicotine?  if Y then next question
+     */
     private Boolean useNicotine;
+
+    @Column(name = "amount_nicotine_day")
+    @NotNull
+    /**
+     * how much nicotine do you use/day - over ½ pack/day decreases time by 10%
+     */
     private int amountNicotineDay;
-    @JsonDeserialize(using = BooleanDeserializer.class)
+
+    @Column(name = "had_menopause", columnDefinition = "BIT", length = 1)
+    @NotNull
+    /**
+     * (Women only) Have you gone through menopause? if y=time increases by 10%
+     */
     private Boolean hadMenopause;
-    private QuestionRangesDTO ageRange;
-    private QuestionRangesDTO sleep;
-    private QuestionRangesDTO caffeineDrinks;
-    private QuestionRangesDTO bowelMovement;
-    private QuestionRangesDTO activityLevel;
-    private QuestionRangesDTO bodyfat;
+
+    @ManyToOne(cascade = CascadeType.DETACH)
+    @NotNull
+    private QuestionRangesEN ageRange;
+
+    @ManyToOne(cascade = CascadeType.DETACH)
+    @NotNull
+    private QuestionRangesEN sleep;
+
+    @ManyToOne(cascade = CascadeType.DETACH)
+    @NotNull
+    private QuestionRangesEN caffeineDrinks;
+
+    @ManyToOne(cascade = CascadeType.DETACH)
+    @NotNull
+    private QuestionRangesEN bowelMovement;
+
+    @ManyToOne(cascade = CascadeType.DETACH)
+    @NotNull
+    private QuestionRangesEN activityLevel;
+
+    @ManyToOne(cascade = CascadeType.DETACH)
+    @NotNull
+    private QuestionRangesEN bodyfat;
 
     public Long getId() {
         return id;
@@ -120,6 +249,14 @@ public class ProfileDTO implements Serializable {
 
     public void setWeight(int weight) {
         this.weight = weight;
+    }
+
+    public BigDecimal getScore() {
+        return score;
+    }
+
+    public void setScore(BigDecimal score) {
+        this.score = score;
     }
 
     public boolean getOnPrescriptionMeds() {
@@ -226,51 +363,51 @@ public class ProfileDTO implements Serializable {
         this.hadMenopause = hadMenopause;
     }
 
-    public QuestionRangesDTO getAgeRange() {
+    public QuestionRangesEN getAgeRange() {
         return ageRange;
     }
 
-    public void setAgeRange(QuestionRangesDTO ageRange) {
+    public void setAgeRange(QuestionRangesEN ageRange) {
         this.ageRange = ageRange;
     }
 
-    public QuestionRangesDTO getSleep() {
+    public QuestionRangesEN getSleep() {
         return sleep;
     }
 
-    public void setSleep(QuestionRangesDTO sleep) {
+    public void setSleep(QuestionRangesEN sleep) {
         this.sleep = sleep;
     }
 
-    public QuestionRangesDTO getCaffeineDrinks() {
+    public QuestionRangesEN getCaffeineDrinks() {
         return caffeineDrinks;
     }
 
-    public void setCaffeineDrinks(QuestionRangesDTO caffeineDrinks) {
+    public void setCaffeineDrinks(QuestionRangesEN caffeineDrinks) {
         this.caffeineDrinks = caffeineDrinks;
     }
 
-    public QuestionRangesDTO getBowelMovement() {
+    public QuestionRangesEN getBowelMovement() {
         return bowelMovement;
     }
 
-    public void setBowelMovement(QuestionRangesDTO bowelMovement) {
+    public void setBowelMovement(QuestionRangesEN bowelMovement) {
         this.bowelMovement = bowelMovement;
     }
 
-    public QuestionRangesDTO getActivityLevel() {
+    public QuestionRangesEN getActivityLevel() {
         return activityLevel;
     }
 
-    public void setActivityLevel(QuestionRangesDTO activityLevel) {
+    public void setActivityLevel(QuestionRangesEN activityLevel) {
         this.activityLevel = activityLevel;
     }
 
-    public QuestionRangesDTO getBodyfat() {
+    public QuestionRangesEN getBodyfat() {
         return bodyfat;
     }
 
-    public void setBodyfat(QuestionRangesDTO bodyfat) {
+    public void setBodyfat(QuestionRangesEN bodyfat) {
         this.bodyfat = bodyfat;
     }
 }

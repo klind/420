@@ -1,7 +1,7 @@
 package com.mmj.data.core.extclient.dto;
 
-import com.mmj.data.core.serializer.BooleanDeserializer;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.mmj.data.core.serializer.BooleanDeserializer;
 
 import java.math.BigDecimal;
 import java.util.List;

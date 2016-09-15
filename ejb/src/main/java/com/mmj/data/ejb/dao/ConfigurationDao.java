@@ -1,10 +1,10 @@
 package com.mmj.data.ejb.dao;
 
-import com.mmj.data.core.exception.SystemException;
 import com.mmj.data.core.enums.ConfigurationCategoryEnum;
 import com.mmj.data.core.enums.ConfigurationIdentityEnum;
 import com.mmj.data.core.enums.SystemConfigurationEnum;
 import com.mmj.data.core.exception.NotFoundException;
+import com.mmj.data.core.exception.SystemException;
 import com.mmj.data.ejb.model.AccessConfigurationEN;
 import com.mmj.data.ejb.model.ConfigurationEN;
 import com.mmj.data.ejb.model.SystemConfigurationEN;

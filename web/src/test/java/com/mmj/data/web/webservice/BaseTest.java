@@ -25,13 +25,13 @@ public abstract class BaseTest {
      */
     public static WebArchive getDeployment() {
         File[] files = Maven.resolver().loadPomFromFile("pom.xml")
-                // Do not use g4tc-ejb to avoid the persistence.xml, we want to use test-persistence.xml
-                .importRuntimeAndTestDependencies().resolve().using(new RejectDependenciesStrategy("com.allegiant.g4tc:g4tc-ejb"))
+                // Do not use mmj-ejb to avoid the persistence.xml, we want to use test-persistence.xml
+                .importRuntimeAndTestDependencies().resolve().using(new RejectDependenciesStrategy("com.mmj.data:mmj-ejb"))
                 .as(File.class);
 
-        WebArchive war = ShrinkWrap.create(WebArchive.class, "g4tcRestWebservice.war")
+        WebArchive war = ShrinkWrap.create(WebArchive.class, "mmj-test.war")
                 .addAsLibraries(files)
-                .addPackages(true, "com.allegiant.g4tc.web")
+                .addPackages(true, "com.mmj.data.web")
                 .addPackages(true, /*Filters.exclude(CacheHandlerScheduleSB.class), */"com.allegiant.g4tc.ejb") /* Load the classes from the ejb module instead of through dependency to avoid getting the g4tc-ejb/src/java/resources/META-INF/persistence.xml, we want the one from the test package */
                 //.addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml") /* This can be overridden to use beans.xml that specifies @Alternative class. See OrderTest for reference */
                 .addAsResource("import.sql") /* g4tc-ejb/src/test/resources/META-INF/import.sql ( Through dependency to the ejb test-jar ) */

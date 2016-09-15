@@ -1,10 +1,9 @@
 package com.mmj.data.core.dto.ws;
 
-
+import com.mmj.data.core.constant.Constants;
 import com.mmj.data.core.exception.BusinessException;
 import com.mmj.data.core.extclient.Passenger;
 import com.mmj.data.core.util.DateTimeUtil;
-import com.mmj.data.core.constant.Constants;
 
 import java.io.Serializable;
 import java.time.LocalDate;

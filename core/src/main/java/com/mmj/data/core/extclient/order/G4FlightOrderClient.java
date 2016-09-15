@@ -1,5 +1,6 @@
 package com.mmj.data.core.extclient.order;
 
+import com.mmj.data.core.constant.Constants;
 import com.mmj.data.core.extclient.dto.BookReservationResponseDto;
 import com.mmj.data.core.extclient.dto.CancelOrderResponseDto;
 import com.mmj.data.core.extclient.dto.FlightBookingRequestDto;
@@ -7,7 +8,6 @@ import com.mmj.data.core.extclient.dto.ModifyOrderRequestDto;
 import com.mmj.data.core.extclient.dto.ModifyOrderResponseDto;
 import com.mmj.data.core.extclient.dto.ReservationResponseDto;
 import com.mmj.data.core.extclient.dto.ReservationsResponseDto;
-import com.mmj.data.core.constant.Constants;
 import org.jboss.resteasy.client.ClientResponse;
 
 import javax.ws.rs.Consumes;

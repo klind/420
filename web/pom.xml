@@ -285,7 +285,7 @@
                 <configuration>
                     <apiSources>
                         <apiSource>
-                            <locations>com.allegiant.g4tc.web.webservice</locations>
+                            <locations>com.mmj.data.web.webservice</locations>
                             <schemes>https</schemes>
                             <basePath>/g4tc/v1/api</basePath>
                             <info>

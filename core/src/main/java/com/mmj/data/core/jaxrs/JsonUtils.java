@@ -1,4 +1,4 @@
-package com.mmj.data.core.util;
+package com.mmj.data.core.jaxrs;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -15,6 +15,8 @@ import com.fasterxml.jackson.datatype.guava.GuavaModule;
 import com.fasterxml.jackson.datatype.joda.JodaModule;
 import com.fasterxml.jackson.module.jaxb.JaxbAnnotationModule;
 import com.google.common.collect.Sets;
+import com.mmj.data.core.util.DeserializationException;
+import com.mmj.data.core.util.SerializationException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

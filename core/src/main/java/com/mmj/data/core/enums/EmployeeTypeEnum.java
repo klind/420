@@ -1,7 +1,7 @@
 package com.mmj.data.core.enums;
 
-import com.mmj.data.core.exception.SystemException;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.mmj.data.core.exception.SystemException;
 
 import java.util.EnumSet;
 

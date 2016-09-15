@@ -1,6 +1,5 @@
 package com.mmj.data.web.webservice;
 
-import com.mmj.data.core.exception.BusinessException;
 import com.mmj.data.core.dto.entity.ConfigurationDTO;
 import com.mmj.data.core.dto.entity.EmployeePartialDTO;
 import com.mmj.data.core.dto.entity.EmployeePatchDTO;
@@ -9,6 +8,7 @@ import com.mmj.data.core.dto.entity.PassengerDTO;
 import com.mmj.data.core.dto.entity.SaCodeDTO;
 import com.mmj.data.core.dto.entity.SuspensionDTO;
 import com.mmj.data.core.dto.ws.WaitlistRequestDTO;
+import com.mmj.data.core.exception.BusinessException;
 import com.mmj.data.core.exception.NotFoundException;
 import com.mmj.data.core.extclient.dto.FlightBookingRequestDto;
 import com.mmj.data.core.extclient.dto.ModifyOrderRequestDto;

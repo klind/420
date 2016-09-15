@@ -1,8 +1,8 @@
 package com.mmj.data.ejb.session;
 
+import com.mmj.data.core.enums.SACodeEnum;
 import com.mmj.data.core.exception.BusinessException;
 import com.mmj.data.core.exception.SystemException;
-import com.mmj.data.core.enums.SACodeEnum;
 import com.mmj.data.core.extclient.dto.PassengerSegmentDto;
 import com.mmj.data.core.extclient.dto.ReservationDto;
 import com.mmj.data.core.flights.FlightsService;

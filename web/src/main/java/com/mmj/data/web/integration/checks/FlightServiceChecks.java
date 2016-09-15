@@ -7,7 +7,6 @@ import com.mmj.data.core.extclient.dto.RouteDto;
 import com.mmj.data.core.flights.FlightsService;
 import com.mmj.data.core.util.ToJson;
 import org.apache.commons.io.IOUtils;
-//import org.junit.Assert;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -19,6 +18,8 @@ import java.io.InputStreamReader;
 import java.time.LocalDate;
 import java.time.Month;
 import java.util.List;
+
+//import org.junit.Assert;
 
 /**
  * Json Schema Checks that help ensure the contract on our depending webservices don't change.
