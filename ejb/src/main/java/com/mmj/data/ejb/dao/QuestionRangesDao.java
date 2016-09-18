@@ -2,7 +2,7 @@ package com.mmj.data.ejb.dao;
 
 import com.mmj.data.core.exception.NotFoundException;
 import com.mmj.data.core.exception.SystemException;
-import com.mmj.data.ejb.model2.QuestionRangesEN;
+import com.mmj.data.ejb.model.QuestionRangeEN;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -19,27 +19,27 @@ public class QuestionRangesDao {
     @PersistenceContext()
     private EntityManager em;
 
-    public List<QuestionRangesEN> getScoreRanges() {
-        List<QuestionRangesEN> result = null;
+    public List<QuestionRangeEN> getQuestionRanges() {
+        List<QuestionRangeEN> result = null;
         try {
-            result = em.createQuery("SELECT c FROM QuestionRangesEN c").getResultList();
+            result = em.createQuery("SELECT c FROM QuestionRangeEN c").getResultList();
         } catch (Exception e) {
-            LOG.error("Could not get score ranges", e);
-            throw new SystemException("Could not get score ranges");
+            LOG.error("Could not get question ranges", e);
+            throw new SystemException("Could not get question ranges");
         }
         return result;
     }
 
-    public QuestionRangesEN getQuestionRangeById(Long id) {
-        QuestionRangesEN result = null;
+    public QuestionRangeEN getQuestionRangeById(Long id) {
+        QuestionRangeEN result = null;
         try {
-            result = em.find(QuestionRangesEN.class, id);
+            result = em.find(QuestionRangeEN.class, id);
             if (result == null) {
-                throw new NotFoundException("QuestionRangesEN with id " + id + " could not be found");
+                throw new NotFoundException("QuestionRangeEN with id " + id + " could not be found");
             }
         } catch (Exception e) {
-            LOG.error("Could not get QuestionRangesEN with id {}", id, e);
-            throw new SystemException("Could not get QuestionRangesEN with id " + id);
+            LOG.error("Could not get QuestionRangeEN with id {}", id, e);
+            throw new SystemException("Could not get QuestionRangeEN with id " + id);
         }
         return result;
     }

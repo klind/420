@@ -1,8 +1,10 @@
 package com.mmj.data.ejb.session;
 
+import com.mmj.data.core.dto.entity.QuestionRangeDTO;
 import com.mmj.data.ejb.dao.ProfileDao;
 import com.mmj.data.ejb.dao.QuestionRangesDao;
-import com.mmj.data.ejb.model2.QuestionRangesEN;
+import com.mmj.data.ejb.model.QuestionRangeEN;
+import com.mmj.data.ejb.transformer.Transformer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -11,6 +13,7 @@ import javax.ejb.Stateless;
 import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
 import javax.inject.Inject;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -28,9 +31,16 @@ public class QuestionRangesSB {
     @Inject
     private QuestionRangesDao questionRangesDao;
 
-    @TransactionAttribute(TransactionAttributeType.SUPPORTS)
-    public List<QuestionRangesEN> getQuestionRanges() {
-        List<QuestionRangesEN> questionRangesENs = questionRangesDao.getScoreRanges();
-        return questionRangesENs;
+    @Inject
+    private Transformer transformer;
+
+    @TransactionAttribute(TransactionAttributeType.REQUIRED)
+    public List<QuestionRangeDTO> getQuestionRanges() {
+        List<QuestionRangeDTO> result = new ArrayList<>();
+        List<QuestionRangeEN> questionRangesENs = questionRangesDao.getQuestionRanges();
+        for (QuestionRangeEN questionRangesEN : questionRangesENs) {
+            result.add(transformer.getQuestionRangeDTO(questionRangesEN));
+        }
+        return result;
     }
 }

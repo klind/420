@@ -1,35 +1,90 @@
 package com.mmj.data.core.dto.entity;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.mmj.data.core.constant.Constants;
 import com.mmj.data.core.serializer.BooleanDeserializer;
 
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 import java.io.Serializable;
-import java.util.Date;
+import java.time.LocalDate;
 
 public class ProfileDTO implements Serializable {
     private static final long serialVersionUID = 1L;
 
     private Long id;
+
+    @NotNull(message = "email may not be null")
+    @Pattern(regexp=Constants.EMAIL_REGEX, message = "email must match " + Constants.EMAIL_REGEX)
     private String email;
+
+    @NotNull(message = "firstName may not be null")
+    @Pattern(regexp=Constants.FIRST_NAME_REGEX, message = "firstName must match " + Constants.FIRST_NAME_REGEX)
     private String firstName;
+
+    @Pattern(regexp=Constants.MIDDLE_NAME_REGEX, message = "middleName must match " + Constants.MIDDLE_NAME_REGEX)
     private String middleName;
+
+    @NotNull(message = "lastName may not be null")
+    @Pattern(regexp=Constants.LAST_NAME_REGEX, message = "lastName must match " + Constants.LAST_NAME_REGEX)
     private String lastName;
-    private Date dob;
+
+    //@NotNull(message = "dob may not be null")
+    //@Pattern(regexp=Constants.DOB_REGEX)
+    private LocalDate dob;
+
+    @Pattern(regexp = Constants.PHONE_REGEX, message = "phone must match " + Constants.PHONE_REGEX)
     private String phone;
+
+    @NotNull(message = "gender may not be null")
+    @Pattern(regexp=Constants.EMPLOYEE_GENDER_REGEX, message = "gender must match " + Constants.EMPLOYEE_GENDER_REGEX)
     private String gender;
+
+    /*@NotNull
+    @Min(0)
+    @Max(100)*/
     private int weight;
+
+    @NotNull(message = "onPrescriptionMeds may not be null")
     @JsonDeserialize(using = BooleanDeserializer.class)
     private Boolean onPrescriptionMeds;
+
+    @NotNull(message = "vegetarian may not be null")
     @JsonDeserialize(using = BooleanDeserializer.class)
     private Boolean vegetarian;
+
+    /*@NotNull
+    @Min(0)
+    @Max(100)*/
     private int avgOunceMeatDay;
+
+    /*@NotNull
+    @Min(0)
+    @Max(100)*/
     private int avgSexWeek;
+
+    /*@NotNull
+    @Min(0)
+    @Max(100)*/
     private int avgHoursSweatWeek;
+
+    /*@NotNull
+    @Min(0)
+    @Max(100)*/
     private int avgOuncePotThcWeek;
+
+    @NotNull(message = "preferSalivas may not be null")
     @JsonDeserialize(using = BooleanDeserializer.class)
     private Boolean preferSalivas;
+
+    @NotNull(message = "children may not be null")
     @JsonDeserialize(using = BooleanDeserializer.class)
     private Boolean children;
+
+    @NotNull(message = "geneticItems may not be null")
     @JsonDeserialize(using = BooleanDeserializer.class)
     private Boolean geneticItems;
     /**
@@ -37,18 +92,41 @@ public class ProfileDTO implements Serializable {
      * 2 = cold
      * 3 = normal
      */
+    /*@NotNull(message = "hotColdNormal may not be null")
+    @Min(1)
+    @Max(3)*/
     private int hotColdNormal;
+
+    @NotNull(message = "useNicotine may not be null")
     @JsonDeserialize(using = BooleanDeserializer.class)
     private Boolean useNicotine;
+
+    /*@NotNull(message = "amountNicotineDay may not be null")
+    @Min(0)
+    @Max(100)*/
     private int amountNicotineDay;
+
+    @NotNull(message = "hadMenopause may not be null")
     @JsonDeserialize(using = BooleanDeserializer.class)
     private Boolean hadMenopause;
-    private QuestionRangesDTO ageRange;
-    private QuestionRangesDTO sleep;
-    private QuestionRangesDTO caffeineDrinks;
-    private QuestionRangesDTO bowelMovement;
-    private QuestionRangesDTO activityLevel;
-    private QuestionRangesDTO bodyfat;
+
+    @NotNull(message = "ageRange may not be null")
+    private QuestionRangeDTO ageRange;
+
+    @NotNull(message = "sleep may not be null")
+    private QuestionRangeDTO sleep;
+
+    @NotNull(message = "caffeineDrinks may not be null")
+    private QuestionRangeDTO caffeineDrinks;
+
+    @NotNull(message = "bowelMovement may not be null")
+    private QuestionRangeDTO bowelMovement;
+
+    @NotNull(message = "activityLevel may not be null")
+    private QuestionRangeDTO activityLevel;
+
+    @NotNull(message = "bodyfat may not be null")
+    private QuestionRangeDTO bodyfat;
 
     public Long getId() {
         return id;
@@ -90,11 +168,11 @@ public class ProfileDTO implements Serializable {
         this.lastName = lastName;
     }
 
-    public Date getDob() {
+    public LocalDate getDob() {
         return dob;
     }
 
-    public void setDob(Date dob) {
+    public void setDob(LocalDate dob) {
         this.dob = dob;
     }
 
@@ -226,51 +304,51 @@ public class ProfileDTO implements Serializable {
         this.hadMenopause = hadMenopause;
     }
 
-    public QuestionRangesDTO getAgeRange() {
+    public QuestionRangeDTO getAgeRange() {
         return ageRange;
     }
 
-    public void setAgeRange(QuestionRangesDTO ageRange) {
+    public void setAgeRange(QuestionRangeDTO ageRange) {
         this.ageRange = ageRange;
     }
 
-    public QuestionRangesDTO getSleep() {
+    public QuestionRangeDTO getSleep() {
         return sleep;
     }
 
-    public void setSleep(QuestionRangesDTO sleep) {
+    public void setSleep(QuestionRangeDTO sleep) {
         this.sleep = sleep;
     }
 
-    public QuestionRangesDTO getCaffeineDrinks() {
+    public QuestionRangeDTO getCaffeineDrinks() {
         return caffeineDrinks;
     }
 
-    public void setCaffeineDrinks(QuestionRangesDTO caffeineDrinks) {
+    public void setCaffeineDrinks(QuestionRangeDTO caffeineDrinks) {
         this.caffeineDrinks = caffeineDrinks;
     }
 
-    public QuestionRangesDTO getBowelMovement() {
+    public QuestionRangeDTO getBowelMovement() {
         return bowelMovement;
     }
 
-    public void setBowelMovement(QuestionRangesDTO bowelMovement) {
+    public void setBowelMovement(QuestionRangeDTO bowelMovement) {
         this.bowelMovement = bowelMovement;
     }
 
-    public QuestionRangesDTO getActivityLevel() {
+    public QuestionRangeDTO getActivityLevel() {
         return activityLevel;
     }
 
-    public void setActivityLevel(QuestionRangesDTO activityLevel) {
+    public void setActivityLevel(QuestionRangeDTO activityLevel) {
         this.activityLevel = activityLevel;
     }
 
-    public QuestionRangesDTO getBodyfat() {
+    public QuestionRangeDTO getBodyfat() {
         return bodyfat;
     }
 
-    public void setBodyfat(QuestionRangesDTO bodyfat) {
+    public void setBodyfat(QuestionRangeDTO bodyfat) {
         this.bodyfat = bodyfat;
     }
 }

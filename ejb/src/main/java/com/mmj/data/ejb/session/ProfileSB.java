@@ -1,9 +1,10 @@
 package com.mmj.data.ejb.session;
 
 import com.mmj.data.core.dto.entity.ProfileDTO;
+import com.mmj.data.core.exception.AlreadyExistsException;
 import com.mmj.data.core.exception.NotFoundException;
 import com.mmj.data.ejb.dao.ProfileDao;
-import com.mmj.data.ejb.model2.ProfileEN;
+import com.mmj.data.ejb.model.ProfileEN;
 import com.mmj.data.ejb.transformer.Transformer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -32,7 +33,10 @@ public class ProfileSB {
     private Transformer transformer;
 
     @TransactionAttribute(TransactionAttributeType.REQUIRED)
-    public ProfileDTO saveNewProfile(ProfileDTO profileDTO) {
+    public ProfileDTO createProfile(ProfileDTO profileDTO) throws AlreadyExistsException {
+        if (profileDao.profileExistsByEmail(profileDTO.getEmail())) {
+            throw new AlreadyExistsException("The email " + profileDTO.getEmail() + " is already in use");
+        }
         ProfileEN profileEN = transformer.getProfileEN(profileDTO);
         calculateScore(profileEN);
         profileDao.saveNewProfile(profileEN);
@@ -40,7 +44,6 @@ public class ProfileSB {
     }
 
     private void calculateScore(ProfileEN profileEN) {
-
         BigDecimal score = new BigDecimal(0);
         MathContext mc = new MathContext(3);
 
@@ -70,6 +73,11 @@ public class ProfileSB {
     @TransactionAttribute(TransactionAttributeType.SUPPORTS)
     public ProfileDTO getProfileById(Long id) throws NotFoundException {
         ProfileEN profileEN = profileDao.getProfileById(id);
+        return transformer.getProfileDTO(profileEN);
+    }
+
+    public ProfileDTO getProfileByEmail(String email) throws NotFoundException {
+        ProfileEN profileEN = profileDao.getProfileByEmail(email);
         return transformer.getProfileDTO(profileEN);
     }
 }

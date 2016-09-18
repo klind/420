@@ -1,12 +1,20 @@
 package com.mmj.data.ejb.transformer;
 
+import com.mmj.data.core.dto.entity.AnswerDTO;
 import com.mmj.data.core.dto.entity.ProfileDTO;
-import com.mmj.data.core.dto.entity.QuestionRangesDTO;
+import com.mmj.data.core.dto.entity.QuestionDTO;
+import com.mmj.data.core.dto.entity.QuestionRangeDTO;
+import com.mmj.data.core.dto.entity.SurveyDTO;
+import com.mmj.data.core.util.DateTimeUtil;
 import com.mmj.data.ejb.dao.QuestionRangesDao;
-import com.mmj.data.ejb.model2.ProfileEN;
-import com.mmj.data.ejb.model2.QuestionRangesEN;
+import com.mmj.data.ejb.model.AnswerEN;
+import com.mmj.data.ejb.model.ProfileEN;
+import com.mmj.data.ejb.model.QuestionEN;
+import com.mmj.data.ejb.model.QuestionRangeEN;
+import com.mmj.data.ejb.model.SurveyEN;
 
 import javax.inject.Inject;
+import java.util.List;
 
 public class Transformer {
 
@@ -25,7 +33,7 @@ public class Transformer {
         profileEN.setBowelMovement(questionRangesDao.getQuestionRangeById(profileDTO.getBowelMovement().getId()));
         profileEN.setCaffeineDrinks(questionRangesDao.getQuestionRangeById(profileDTO.getCaffeineDrinks().getId()));
         profileEN.setChildren(profileDTO.getChildren());
-        profileEN.setDob(profileDTO.getDob());
+        profileEN.setDob(DateTimeUtil.localDateToDate(profileDTO.getDob()));
         profileEN.setEmail(profileDTO.getEmail());
         profileEN.setFirstName(profileDTO.getFirstName());
         profileEN.setGender(profileDTO.getGender());
@@ -46,6 +54,7 @@ public class Transformer {
 
     public ProfileDTO getProfileDTO(ProfileEN profileEN) {
         ProfileDTO profileDTO = new ProfileDTO();
+        profileDTO.setId(profileEN.getId());
         profileDTO.setAvgHoursSweatWeek(profileEN.getAvgHoursSweatWeek());
         profileDTO.setAmountNicotineDay(profileEN.getAmountNicotineDay());
         profileDTO.setActivityLevel(this.getQuestionRangeDTO(profileEN.getActivityLevel()));
@@ -56,7 +65,7 @@ public class Transformer {
         profileDTO.setBowelMovement(this.getQuestionRangeDTO(profileEN.getBowelMovement()));
         profileDTO.setCaffeineDrinks(this.getQuestionRangeDTO(profileEN.getCaffeineDrinks()));
         profileDTO.setChildren(profileEN.getChildren());
-        profileDTO.setDob(profileEN.getDob());
+        profileDTO.setDob(DateTimeUtil.dateToLocalDate(profileEN.getDob()));
         profileDTO.setEmail(profileEN.getEmail());
         profileDTO.setFirstName(profileEN.getFirstName());
         profileDTO.setGender(profileEN.getGender());
@@ -75,12 +84,54 @@ public class Transformer {
         return profileDTO;
     }
 
-    private QuestionRangesDTO getQuestionRangeDTO(QuestionRangesEN questionRangesEN) {
-        QuestionRangesDTO questionRangesDTO = new QuestionRangesDTO();
+    public QuestionRangeDTO getQuestionRangeDTO(QuestionRangeEN questionRangesEN) {
+        QuestionRangeDTO questionRangesDTO = new QuestionRangeDTO();
         questionRangesDTO.setCategory(questionRangesEN.getCategory());
         questionRangesDTO.setId(questionRangesEN.getId());
         questionRangesDTO.setLower(questionRangesEN.getLower());
         questionRangesDTO.setUpper(questionRangesEN.getUpper());
         return questionRangesDTO;
+    }
+
+    public SurveyEN getSurveyEN(SurveyDTO surveyDTO) {
+        SurveyEN surveyEN = new SurveyEN();
+        surveyEN.setId(surveyDTO.getId());
+        surveyEN.setName(surveyDTO.getName());
+        return surveyEN;
+    }
+
+    public SurveyDTO getSurveyDTO(SurveyEN surveyEN) {
+        SurveyDTO surveyDTO = new SurveyDTO();
+        surveyDTO.setId(surveyEN.getId());
+        surveyDTO.setName(surveyEN.getName());
+        return surveyDTO;
+    }
+
+    public AnswerDTO getAnswerDTO(AnswerEN answer) {
+        AnswerDTO answerDTO = new AnswerDTO();
+        answerDTO.setId(answer.getId());
+        answerDTO.setAnswer(answer.getAnswer());
+        answerDTO.setProfileId(answer.getProfile().getId());
+        answerDTO.setQuestionId(answer.getQuestion().getId());
+        answerDTO.setSurveyId(answer.getSurvey().getId());
+        answerDTO.setQuestionRangeId(answer.getAnswerQuestionRange() != null ? answer.getAnswerQuestionRange().getId() : null);
+        return answerDTO;
+    }
+
+    public QuestionDTO getQuestionDTO(QuestionEN question) {
+        QuestionDTO questionDTO = new QuestionDTO();
+        questionDTO.setId(question.getId());
+        questionDTO.setText(question.getText());
+        List<QuestionRangeEN> questionRanges = question.getQuestionRanges();
+        for (QuestionRangeEN questionRange : questionRanges) {
+            questionDTO.getQuestionRanges().add(getQuestionRangeDTO(questionRange));
+        }
+        return questionDTO;
+    }
+
+    public AnswerEN getAnswerEN(AnswerDTO answerDTO) {
+        AnswerEN answerEN = new AnswerEN();
+        answerEN.setAnswer(answerDTO.getAnswer());
+        return answerEN;
     }
 }

@@ -3,6 +3,7 @@ package com.mmj.data.core.jaxrs;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.jaxrs.json.JacksonJaxbJsonProvider;
+import com.mmj.data.core.util.JsonUtils;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.ws.rs.Consumes;

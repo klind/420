@@ -1,6 +1,6 @@
 package com.mmj.data.core.exception;
 
-import com.mmj.data.core.util.ToJson;
+import com.mmj.data.core.util.JsonUtils;
 import org.hibernate.validator.method.MethodConstraintViolation;
 import org.hibernate.validator.method.MethodConstraintViolationException;
 import org.slf4j.Logger;
@@ -29,24 +29,22 @@ public class ExceptionHttpMapper implements ExceptionMapper<Exception> {
             // When catching a BusinessException do not log an error.
             LOG.debug(businessException.getMessage());
             if (exception instanceof NotFoundException) {
-                response = Response.status(Response.Status.NOT_FOUND).entity(ToJson.toJson(businessException.getMessages())).build();
-            } else if (exception instanceof NotAuthorizedTravelException) {
-                response = Response.status(Response.Status.UNAUTHORIZED).entity(ToJson.toJson(businessException.getMessages())).build();
+                response = Response.status(Response.Status.NOT_FOUND).entity(JsonUtils.serialize(businessException.getMessages())).build();
             } else {
-                response = Response.status(Response.Status.BAD_REQUEST).entity(ToJson.toJson(businessException.getMessages())).build();
+                response = Response.status(Response.Status.BAD_REQUEST).entity(JsonUtils.serialize(businessException.getMessages())).build();
             }
         } else if (exception instanceof SystemException) {
             // When catching a SystemException do not log an error. This must be done where the SystemException is created.
             SystemException systemException = (SystemException) exception;
-            response = Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(ToJson.toJson(systemException.getMessages())).build();
+            response = Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(JsonUtils.serialize(systemException.getMessages())).build();
         } else if (exception instanceof EJBException) {
             // When catching a SystemException do not log an error. This must be done where the SystemException is created.
             EJBException ejbException = (EJBException) exception;
             Exception e = ejbException.getCausedByException();
             if (e instanceof SystemException) {
-                response = Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(ToJson.toJson(((SystemException) e).getMessages())).build();
+                response = Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(JsonUtils.serialize(((SystemException) e).getMessages())).build();
             } else {
-                response = Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(ToJson.toJson(e.getMessage())).build();
+                response = Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(JsonUtils.serialize(e.getMessage())).build();
             }
         } else if (exception instanceof ValidationException) {
             if (exception instanceof ValidationException) {
@@ -58,18 +56,18 @@ public class ExceptionHttpMapper implements ExceptionMapper<Exception> {
                     for (MethodConstraintViolation<?> constraintViolation : constraintViolations) {
                         businessException.addMessage(constraintViolation.getMessage());
                     }
-                    String json = ToJson.toJson(businessException.getMessages());
+                    String json = JsonUtils.serialize(businessException.getMessages());
                     response = Response.status(Response.Status.BAD_REQUEST).entity(json).build();
                 } else {
                     LOG.error("ExceptionHttpMapper not setup to handle exception {}.", validationException.getClass());
                     LOG.error(validationException.getMessage(), validationException);
-                    String json = ToJson.toJson(validationException.getMessage());
+                    String json = JsonUtils.serialize(validationException.getMessage());
                     response = Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(json).build();
                 }
             } else {
                 LOG.error("ExceptionHttpMapper not setup to handle exception {}.", exception.getClass());
                 LOG.error(exception.getMessage(), exception);
-                String json = ToJson.toJson(exception.getStackTrace());
+                String json = JsonUtils.serialize(exception.getStackTrace());
                 response = Response.status(Response.Status.BAD_REQUEST).entity(json).build();
             }
         } else {
@@ -85,7 +83,7 @@ public class ExceptionHttpMapper implements ExceptionMapper<Exception> {
             } else {
                 systemException.addMessage(t.getMessage());
             }
-            String json = ToJson.toJson(systemException.getMessages());
+            String json = JsonUtils.serialize(systemException.getMessages());
             response = Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(json).build();
         }
         return response;

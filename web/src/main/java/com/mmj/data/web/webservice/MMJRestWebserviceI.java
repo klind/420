@@ -1,6 +1,8 @@
 package com.mmj.data.web.webservice;
 
+import com.mmj.data.core.dto.entity.AnswerDTO;
 import com.mmj.data.core.dto.entity.ProfileDTO;
+import com.mmj.data.core.dto.entity.SurveyDTO;
 import com.mmj.data.core.exception.BusinessException;
 import com.mmj.data.core.exception.NotFoundException;
 import io.swagger.annotations.Api;
@@ -29,20 +31,12 @@ import javax.ws.rs.core.Response;
 @Produces(MediaType.APPLICATION_JSON)
 public interface MMJRestWebserviceI {
 
-    /**
-     * Create new employee.
-     * This service is only used from pipeline to create a new employee.
-     *
-     * @return
-     * @ Any possible exception thrown in making the request.
-     */
     @POST
     @Path("/profiles")
     @ValidateRequest
     @ApiOperation(value = "Create new profile.",
             notes = "{ <br>" +
-                    "\"id\":\"100\", <br>" +
-                    "\"email\":\"john.doe@mmj.com.\", <br>" +
+                    "\"email\":\"john.doe@mmj.com\", <br>" +
                     "\"firstName\":\"John\", <br>" +
                     "\"middleName\":null, <br>" +
                     "\"lastName\":\"Doe\", <br>" +
@@ -64,23 +58,23 @@ public interface MMJRestWebserviceI {
                     "\"amountNicotineDay\":\"10\", <br>" +
                     "\"hadMenopause\":\"0\", <br>" +
                     "\"ageRange\":{ <br>" +
-                        "\"id\":73 <br>" +
-                        "}, <br>" +
+                    "\"id\":73 <br>" +
+                    "}, <br>" +
                     "\"sleep\":{ <br>" +
-                        "\"id\":78 <br>" +
-                        "}, <br>" +
+                    "\"id\":78 <br>" +
+                    "}, <br>" +
                     "\"caffeineDrinks\":{ <br>" +
-                        "\"id\":83 <br>" +
-                        "}, <br>" +
+                    "\"id\":83 <br>" +
+                    "}, <br>" +
                     "\"bowelMovement\":{ <br>" +
-                        "\"id\":88 <br>" +
-                        "}, <br>" +
+                    "\"id\":88 <br>" +
+                    "}, <br>" +
                     "\"activityLevel\":{ <br>" +
-                        "\"id\":93 <br>" +
-                        "}, <br>" +
+                    "\"id\":93 <br>" +
+                    "}, <br>" +
                     "\"bodyfat\":{ <br>" +
-                        "\"id\":73 <br>" +
-                        "} <br>" +
+                    "\"id\":73 <br>" +
+                    "} <br>" +
                     "}<br>",
             response = Response.class)
     @ApiResponses(value = {
@@ -108,9 +102,112 @@ public interface MMJRestWebserviceI {
             @Context HttpServletRequest servletRequest) throws NotFoundException;
 
     @GET
+    @Path("/profiles/email/{email}")
+    @ValidateRequest
+    @ApiOperation(value = "Get profile information by email.",
+            notes = "",
+            response = Response.class)
+    @ApiResponses(value = {
+            @ApiResponse(code = 500, message = "Internal Server Error"),
+            @ApiResponse(code = 400, message = "Bad request"),
+            @ApiResponse(code = 404, message = "Profile not found")}) Response getProfileByEmail(
+            @ApiParam(value = "Email of the profile", required = true)
+            @NotNull
+            @PathParam("email")
+            String email,
+            @Context HttpServletRequest servletRequest) throws NotFoundException;
+
+    @POST
+    @Path("/surveys")
+    @ValidateRequest
+    @ApiOperation(value = "Create new survey.",
+            notes = "{ <br>" +
+                    "\"name\":\"Awesome Survey\", <br>" +
+                    "}<br>",
+            response = Response.class)
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Ok"),
+            @ApiResponse(code = 500, message = "Internal Server Error"),
+            @ApiResponse(code = 400, message = "Bad request")}) Response createSurvey(
+            @ApiParam(required = true)
+            @Valid SurveyDTO surveyDTO,
+            @Context HttpServletRequest servletRequest) throws BusinessException;
+
+    @GET
+    @Path("/surveys/{id}")
+    @ValidateRequest
+    @ApiOperation(value = "Get survey by id.",
+            notes = "",
+            response = Response.class)
+    @ApiResponses(value = {
+            @ApiResponse(code = 500, message = "Internal Server Error"),
+            @ApiResponse(code = 400, message = "Bad request"),
+            @ApiResponse(code = 404, message = "Employee not found")}) Response getSurveyById(
+            @ApiParam(value = "Id of the profile", required = true)
+            @NotNull
+            @PathParam("id")
+            Long id,
+            @Context HttpServletRequest servletRequest) throws NotFoundException;
+
+    @GET
+    @Path("/surveys")
+    @ValidateRequest
+    @ApiOperation(value = "Get surveys.",
+            notes = "",
+            response = Response.class)
+    @ApiResponses(value = {
+            @ApiResponse(code = 500, message = "Internal Server Error"),
+            @ApiResponse(code = 400, message = "Bad request"),
+            @ApiResponse(code = 404, message = "Employee not found")}) Response getSurveys(
+            @Context HttpServletRequest servletRequest);
+
+    @GET
+    @Path("/surveys/answers/{surveyId}")
+    @ValidateRequest
+    @ApiOperation(value = "Get answers by survey id.",
+            notes = "",
+            response = Response.class)
+    @ApiResponses(value = {
+            @ApiResponse(code = 500, message = "Internal Server Error"),
+            @ApiResponse(code = 400, message = "Bad request")}) Response getAnswersBySurveyId(
+            @ApiParam(value = "surveyId", required = true)
+            @NotNull
+            @PathParam("surveyId")
+            Long surveyId,
+            @Context HttpServletRequest servletRequest) throws NotFoundException;
+
+    @GET
+    @Path("/surveys/questions/{surveyId}")
+    @ValidateRequest
+    @ApiOperation(value = "Get questions by survey id.",
+            notes = "",
+            response = Response.class)
+    @ApiResponses(value = {
+            @ApiResponse(code = 500, message = "Internal Server Error"),
+            @ApiResponse(code = 400, message = "Bad request")}) Response getQuestionsBySurveyId(
+            @ApiParam(value = "surveyId", required = true)
+            @NotNull
+            @PathParam("surveyId")
+            Long surveyId,
+            @Context HttpServletRequest servletRequest) throws NotFoundException;
+
+
+    @GET
+    @Path("/questions")
+    @ValidateRequest
+    @ApiOperation(value = "Get questions.",
+            notes = "",
+            response = Response.class)
+    @ApiResponses(value = {
+            @ApiResponse(code = 500, message = "Internal Server Error"),
+            @ApiResponse(code = 400, message = "Bad request")}) Response getQuestions(
+            @Context HttpServletRequest servletRequest);
+
+
+    @GET
     @Path("/questionranges")
     @ValidateRequest
-    @ApiOperation(value = "Get all score ranges.",
+    @ApiOperation(value = "Get all question ranges ranges.",
             notes = "",
             response = Response.class)
     @ApiResponses(value = {
@@ -118,4 +215,52 @@ public interface MMJRestWebserviceI {
             @ApiResponse(code = 500, message = "Internal Server Error"),
             @ApiResponse(code = 400, message = "Bad request")}) Response getQuestionRanges(
             @Context HttpServletRequest servletRequest);
+
+    @POST
+    @Path("/answer")
+    @ValidateRequest
+    @ApiOperation(value = "Create new answer.",
+            notes = "{<br>" +
+                    "\"answer\": \"2:30pm\",<br>" +
+                    "\"profileId\": 1,<br>" +
+                    "\"surveyId\": 1,<br>" +
+                    "\"questionId\": 3<br>" +
+                    "}<br>",
+            response = Response.class)
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Ok"),
+            @ApiResponse(code = 500, message = "Internal Server Error"),
+            @ApiResponse(code = 400, message = "Bad request")}) Response createAnswer(
+            @ApiParam(required = true)
+            @Valid AnswerDTO answerDTO,
+            @Context HttpServletRequest servletRequest) throws BusinessException;
+
+    @POST
+    @Path("/answers")
+    @ValidateRequest
+    @ApiOperation(value = "Create a list of answers.",
+            notes = "{<br>" +
+                    "\"answers\":[<br>" +
+                    "{<br>" +
+                    "\"answer\": \"2:30pm\",<br>" +
+                    "\"profileId\": 1,<br>" +
+                    "\"surveyId\": 1,<br>" +
+                    "\"questionId\": 3<br>" +
+                    "},<br>" +
+                    "{<br>" +
+                    "\"answer\": \"45min\",<br>" +
+                    "\"profileId\": 1,<br>" +
+                    "\"surveyId\": 1,<br>" +
+                    "\"questionId\": 4<br>" +
+                    "}<br>" +
+                    "]<br>" +
+                    "}<br>",
+            response = Response.class)
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Ok"),
+            @ApiResponse(code = 500, message = "Internal Server Error"),
+            @ApiResponse(code = 400, message = "Bad request")}) Response createAnswers(
+            @ApiParam(required = true)
+            @Valid AnswerListWrapper answerListWrapper,
+            @Context HttpServletRequest servletRequest) throws BusinessException;
 }
