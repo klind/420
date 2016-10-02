@@ -54,4 +54,17 @@ public class SurveyDao {
         }
         return result;
     }
+
+    public List<SurveyEN> getMySurveys(Long userId) {
+        List<SurveyEN> result = null;
+        try {
+            result = em.createQuery("SELECT c FROM SurveyEN c JOIN c.profiles p WHERE p.id = :id", SurveyEN.class)
+                    .setParameter("id", userId)
+                    .getResultList();
+        } catch (Exception e) {
+            LOG.error("Could not get SurveyEN", e);
+            throw new SystemException("Could not get SurveyEN");
+        }
+        return result;
+    }
 }

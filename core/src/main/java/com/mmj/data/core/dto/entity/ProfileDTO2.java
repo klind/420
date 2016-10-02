@@ -9,31 +9,35 @@ import javax.validation.constraints.Pattern;
 import java.io.Serializable;
 import java.time.LocalDate;
 
-public class ProfileDTO implements Serializable {
+public class ProfileDTO2 implements Serializable {
     private static final long serialVersionUID = 1L;
 
     private Long id;
 
     @NotNull(message = "email may not be null")
-    @Pattern(regexp = Constants.EMAIL_REGEX, message = "email must match " + Constants.EMAIL_REGEX)
+    @Pattern(regexp=Constants.EMAIL_REGEX, message = "email must match " + Constants.EMAIL_REGEX)
     private String email;
 
     @NotNull(message = "firstName may not be null")
-    @Pattern(regexp = Constants.FIRST_NAME_REGEX, message = "firstName must match " + Constants.FIRST_NAME_REGEX)
+    @Pattern(regexp=Constants.FIRST_NAME_REGEX, message = "firstName must match " + Constants.FIRST_NAME_REGEX)
     private String firstName;
 
-    @Pattern(regexp = Constants.MIDDLE_NAME_REGEX, message = "middleName must match " + Constants.MIDDLE_NAME_REGEX)
+    @Pattern(regexp=Constants.MIDDLE_NAME_REGEX, message = "middleName must match " + Constants.MIDDLE_NAME_REGEX)
     private String middleName;
 
     @NotNull(message = "lastName may not be null")
-    @Pattern(regexp = Constants.LAST_NAME_REGEX, message = "lastName must match " + Constants.LAST_NAME_REGEX)
+    @Pattern(regexp=Constants.LAST_NAME_REGEX, message = "lastName must match " + Constants.LAST_NAME_REGEX)
     private String lastName;
+
+    //@NotNull(message = "dob may not be null")
+    //@Pattern(regexp=Constants.DOB_REGEX)
+    private LocalDate dob;
 
     @Pattern(regexp = Constants.PHONE_REGEX, message = "phone must match " + Constants.PHONE_REGEX)
     private String phone;
 
     @NotNull(message = "gender may not be null")
-    @Pattern(regexp = Constants.EMPLOYEE_GENDER_REGEX, message = "gender must match " + Constants.EMPLOYEE_GENDER_REGEX)
+    @Pattern(regexp=Constants.EMPLOYEE_GENDER_REGEX, message = "gender must match " + Constants.EMPLOYEE_GENDER_REGEX)
     private String gender;
 
     /*@NotNull
@@ -81,14 +85,14 @@ public class ProfileDTO implements Serializable {
     @JsonDeserialize(using = BooleanDeserializer.class)
     private Boolean geneticItems;
     /**
-     * H = hot
-     * C = cold
-     * N = normal
+     * 1 = hot
+     * 2 = cold
+     * 3 = normal
      */
     /*@NotNull(message = "hotColdNormal may not be null")
     @Min(1)
     @Max(3)*/
-    private String hotColdNormal;
+    private int hotColdNormal;
 
     /*@NotNull(message = "amountNicotineDay may not be null")
     @Min(0)
@@ -100,22 +104,22 @@ public class ProfileDTO implements Serializable {
     private Boolean hadMenopause;
 
     @NotNull(message = "ageRange may not be null")
-    private Integer ageRange;
+    private QuestionRangeDTO ageRange;
 
     @NotNull(message = "sleep may not be null")
-    private Integer sleep;
+    private QuestionRangeDTO sleep;
 
     @NotNull(message = "caffeineDrinks may not be null")
-    private Integer caffeineDrinks;
+    private QuestionRangeDTO caffeineDrinks;
 
     @NotNull(message = "bowelMovement may not be null")
-    private Integer bowelMovement;
+    private QuestionRangeDTO bowelMovement;
 
     @NotNull(message = "activityLevel may not be null")
-    private Integer activityLevel;
+    private QuestionRangeDTO activityLevel;
 
     @NotNull(message = "bodyfat may not be null")
-    private Integer bodyfat;
+    private QuestionRangeDTO bodyfat;
 
     public Long getId() {
         return id;
@@ -157,6 +161,14 @@ public class ProfileDTO implements Serializable {
         this.lastName = lastName;
     }
 
+    public LocalDate getDob() {
+        return dob;
+    }
+
+    public void setDob(LocalDate dob) {
+        this.dob = dob;
+    }
+
     public String getPhone() {
         return phone;
     }
@@ -181,19 +193,19 @@ public class ProfileDTO implements Serializable {
         this.weight = weight;
     }
 
-    public Boolean getOnPrescriptionMeds() {
+    public boolean getOnPrescriptionMeds() {
         return onPrescriptionMeds;
     }
 
-    public void setOnPrescriptionMeds(Boolean onPrescriptionMeds) {
+    public void setOnPrescriptionMeds(boolean onPrescriptionMeds) {
         this.onPrescriptionMeds = onPrescriptionMeds;
     }
 
-    public Boolean getVegetarian() {
+    public boolean getVegetarian() {
         return vegetarian;
     }
 
-    public void setVegetarian(Boolean vegetarian) {
+    public void setVegetarian(boolean vegetarian) {
         this.vegetarian = vegetarian;
     }
 
@@ -229,35 +241,35 @@ public class ProfileDTO implements Serializable {
         this.avgOuncePotThcWeek = avgOuncePotThcWeek;
     }
 
-    public Boolean getPreferSalivas() {
+    public boolean getPreferSalivas() {
         return preferSalivas;
     }
 
-    public void setPreferSalivas(Boolean preferSalivas) {
+    public void setPreferSalivas(boolean preferSalivas) {
         this.preferSalivas = preferSalivas;
     }
 
-    public Boolean getChildren() {
+    public boolean getChildren() {
         return children;
     }
 
-    public void setChildren(Boolean children) {
+    public void setChildren(boolean children) {
         this.children = children;
     }
 
-    public Boolean getGeneticItems() {
+    public boolean getGeneticItems() {
         return geneticItems;
     }
 
-    public void setGeneticItems(Boolean geneticItems) {
+    public void setGeneticItems(boolean geneticItems) {
         this.geneticItems = geneticItems;
     }
 
-    public String getHotColdNormal() {
+    public int getHotColdNormal() {
         return hotColdNormal;
     }
 
-    public void setHotColdNormal(String hotColdNormal) {
+    public void setHotColdNormal(int hotColdNormal) {
         this.hotColdNormal = hotColdNormal;
     }
 
@@ -269,59 +281,59 @@ public class ProfileDTO implements Serializable {
         this.amountNicotineDay = amountNicotineDay;
     }
 
-    public Boolean getHadMenopause() {
+    public boolean getHadMenopause() {
         return hadMenopause;
     }
 
-    public void setHadMenopause(Boolean hadMenopause) {
+    public void setHadMenopause(boolean hadMenopause) {
         this.hadMenopause = hadMenopause;
     }
 
-    public Integer getAgeRange() {
+    public QuestionRangeDTO getAgeRange() {
         return ageRange;
     }
 
-    public void setAgeRange(Integer ageRange) {
+    public void setAgeRange(QuestionRangeDTO ageRange) {
         this.ageRange = ageRange;
     }
 
-    public Integer getSleep() {
+    public QuestionRangeDTO getSleep() {
         return sleep;
     }
 
-    public void setSleep(Integer sleep) {
+    public void setSleep(QuestionRangeDTO sleep) {
         this.sleep = sleep;
     }
 
-    public Integer getCaffeineDrinks() {
+    public QuestionRangeDTO getCaffeineDrinks() {
         return caffeineDrinks;
     }
 
-    public void setCaffeineDrinks(Integer caffeineDrinks) {
+    public void setCaffeineDrinks(QuestionRangeDTO caffeineDrinks) {
         this.caffeineDrinks = caffeineDrinks;
     }
 
-    public Integer getBowelMovement() {
+    public QuestionRangeDTO getBowelMovement() {
         return bowelMovement;
     }
 
-    public void setBowelMovement(Integer bowelMovement) {
+    public void setBowelMovement(QuestionRangeDTO bowelMovement) {
         this.bowelMovement = bowelMovement;
     }
 
-    public Integer getActivityLevel() {
+    public QuestionRangeDTO getActivityLevel() {
         return activityLevel;
     }
 
-    public void setActivityLevel(Integer activityLevel) {
+    public void setActivityLevel(QuestionRangeDTO activityLevel) {
         this.activityLevel = activityLevel;
     }
 
-    public Integer getBodyfat() {
+    public QuestionRangeDTO getBodyfat() {
         return bodyfat;
     }
 
-    public void setBodyfat(Integer bodyfat) {
+    public void setBodyfat(QuestionRangeDTO bodyfat) {
         this.bodyfat = bodyfat;
     }
 }

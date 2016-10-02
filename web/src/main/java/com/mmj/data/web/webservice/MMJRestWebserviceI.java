@@ -1,7 +1,9 @@
 package com.mmj.data.web.webservice;
 
+import com.mmj.data.core.LoginDTO;
 import com.mmj.data.core.dto.entity.AnswerDTO;
 import com.mmj.data.core.dto.entity.ProfileDTO;
+import com.mmj.data.core.dto.entity.RegisterDTO;
 import com.mmj.data.core.dto.entity.SurveyDTO;
 import com.mmj.data.core.exception.BusinessException;
 import com.mmj.data.core.exception.NotFoundException;
@@ -10,8 +12,9 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
-import org.jboss.resteasy.spi.validation.ValidateRequest;
+//import org.jboss.resteasy.spi.validation.ValidateRequest;
 
+import javax.annotation.security.RolesAllowed;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
@@ -24,6 +27,7 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+
 /**
  * Interface for Rest Webservices for G4 Travel Center. Used for CRUD operations that help manage employee travel benefits for them and their passengers.
  */
@@ -31,9 +35,10 @@ import javax.ws.rs.core.Response;
 @Produces(MediaType.APPLICATION_JSON)
 public interface MMJRestWebserviceI {
 
+
     @POST
     @Path("/profiles")
-    @ValidateRequest
+    @RolesAllowed("admin")
     @ApiOperation(value = "Create new profile.",
             notes = "{ <br>" +
                     "\"email\":\"john.doe@mmj.com\", <br>" +
@@ -54,8 +59,7 @@ public interface MMJRestWebserviceI {
                     "\"children\":\"1\", <br>" +
                     "\"geneticItems\":\"0\", <br>" +
                     "\"hotColdNormal\":\"3\", <br>" +
-                    "\"useNicotine\":\"1\", <br>" +
-                    "\"amountNicotineDay\":\"10\", <br>" +
+                    "\"amountNicotineDay\":\"0\", <br>" +
                     "\"hadMenopause\":\"0\", <br>" +
                     "\"ageRange\":{ <br>" +
                     "\"id\":73 <br>" +
@@ -86,8 +90,8 @@ public interface MMJRestWebserviceI {
             @Context HttpServletRequest servletRequest) throws BusinessException;
 
     @GET
+    @RolesAllowed("admin")
     @Path("/profiles/{id}")
-    @ValidateRequest
     @ApiOperation(value = "Get profile information by id.",
             notes = "",
             response = Response.class)
@@ -103,7 +107,7 @@ public interface MMJRestWebserviceI {
 
     @GET
     @Path("/profiles/email/{email}")
-    @ValidateRequest
+    
     @ApiOperation(value = "Get profile information by email.",
             notes = "",
             response = Response.class)
@@ -117,9 +121,21 @@ public interface MMJRestWebserviceI {
             String email,
             @Context HttpServletRequest servletRequest) throws NotFoundException;
 
+    @GET
+    @Path("/profiles")
+    @RolesAllowed("admin")
+    @ApiOperation(value = "Get profiles.",
+            notes = "",
+            response = Response.class)
+    @ApiResponses(value = {
+            @ApiResponse(code = 500, message = "Internal Server Error"),
+            @ApiResponse(code = 400, message = "Bad request"),
+            @ApiResponse(code = 404, message = "Profile not found")}) Response getProfiles(
+            @Context HttpServletRequest servletRequest) throws NotFoundException;
+
     @POST
     @Path("/surveys")
-    @ValidateRequest
+    
     @ApiOperation(value = "Create new survey.",
             notes = "{ <br>" +
                     "\"name\":\"Awesome Survey\", <br>" +
@@ -135,7 +151,6 @@ public interface MMJRestWebserviceI {
 
     @GET
     @Path("/surveys/{id}")
-    @ValidateRequest
     @ApiOperation(value = "Get survey by id.",
             notes = "",
             response = Response.class)
@@ -150,8 +165,18 @@ public interface MMJRestWebserviceI {
             @Context HttpServletRequest servletRequest) throws NotFoundException;
 
     @GET
+    @Path("/mysurveys")
+    @ApiOperation(value = "Get surveys.",
+            notes = "",
+            response = Response.class)
+    @ApiResponses(value = {
+            @ApiResponse(code = 500, message = "Internal Server Error"),
+            @ApiResponse(code = 400, message = "Bad request"),
+            @ApiResponse(code = 404, message = "Employee not found")}) Response getMySurveys(
+            @Context HttpServletRequest servletRequest) throws BusinessException;
+
+    @GET
     @Path("/surveys")
-    @ValidateRequest
     @ApiOperation(value = "Get surveys.",
             notes = "",
             response = Response.class)
@@ -163,7 +188,7 @@ public interface MMJRestWebserviceI {
 
     @GET
     @Path("/surveys/answers/{surveyId}")
-    @ValidateRequest
+    
     @ApiOperation(value = "Get answers by survey id.",
             notes = "",
             response = Response.class)
@@ -178,7 +203,7 @@ public interface MMJRestWebserviceI {
 
     @GET
     @Path("/surveys/questions/{surveyId}")
-    @ValidateRequest
+    
     @ApiOperation(value = "Get questions by survey id.",
             notes = "",
             response = Response.class)
@@ -194,7 +219,7 @@ public interface MMJRestWebserviceI {
 
     @GET
     @Path("/questions")
-    @ValidateRequest
+    
     @ApiOperation(value = "Get questions.",
             notes = "",
             response = Response.class)
@@ -206,7 +231,7 @@ public interface MMJRestWebserviceI {
 
     @GET
     @Path("/questionranges")
-    @ValidateRequest
+    
     @ApiOperation(value = "Get all question ranges ranges.",
             notes = "",
             response = Response.class)
@@ -217,8 +242,7 @@ public interface MMJRestWebserviceI {
             @Context HttpServletRequest servletRequest);
 
     @POST
-    @Path("/answer")
-    @ValidateRequest
+    @Path("/answers")
     @ApiOperation(value = "Create new answer.",
             notes = "{<br>" +
                     "\"answer\": \"2:30pm\",<br>" +
@@ -235,9 +259,8 @@ public interface MMJRestWebserviceI {
             @Valid AnswerDTO answerDTO,
             @Context HttpServletRequest servletRequest) throws BusinessException;
 
-    @POST
+    /*@POST
     @Path("/answers")
-    @ValidateRequest
     @ApiOperation(value = "Create a list of answers.",
             notes = "{<br>" +
                     "\"answers\":[<br>" +
@@ -262,5 +285,5 @@ public interface MMJRestWebserviceI {
             @ApiResponse(code = 400, message = "Bad request")}) Response createAnswers(
             @ApiParam(required = true)
             @Valid AnswerListWrapper answerListWrapper,
-            @Context HttpServletRequest servletRequest) throws BusinessException;
+            @Context HttpServletRequest servletRequest) throws BusinessException;*/
 }

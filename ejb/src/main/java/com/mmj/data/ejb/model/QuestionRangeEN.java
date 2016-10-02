@@ -22,6 +22,9 @@ public class QuestionRangeEN {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(name = "mark")
+    private Integer mark;
+
     @Column(name = "category", length = 25)
     @NotNull
     private String category;
@@ -48,6 +51,14 @@ public class QuestionRangeEN {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public Integer getMark() {
+        return mark;
+    }
+
+    public void setMark(Integer mark) {
+        this.mark = mark;
     }
 
     public String getCategory() {

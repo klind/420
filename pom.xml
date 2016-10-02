@@ -29,21 +29,31 @@
             resources, i.e. build is platform dependent! -->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <!-- JBoss dependency versions -->
-        <version.jboss.maven.plugin>7.7.Final</version.jboss.maven.plugin>
-        <!-- Define the version of the JBoss BOMs we want to import to specify tested stacks. -->
+        <!--<version.jboss.maven.plugin>7.7.Final</version.jboss.maven.plugin>
+        &lt;!&ndash; Define the version of the JBoss BOMs we want to import to specify tested stacks. &ndash;&gt;
         <version.jboss.bom.eap>6.4.2.GA</version.jboss.bom.eap>
-        <org.slf4j.version>1.7.12</org.slf4j.version>
         <gson.version>2.3.1</gson.version>
-        <resteasy.version>2.3.10.Final</resteasy.version>
-        <!-- other plugin versions -->
+        &lt;!&ndash; other plugin versions &ndash;&gt;
         <version.ejb.plugin>2.5.1</version.ejb.plugin>
         <version.surefire.plugin>2.10</version.surefire.plugin>
         <version.war.plugin>2.6</version.war.plugin>
-        <!-- maven-compiler-plugin -->
+        &lt;!&ndash; maven-compiler-plugin &ndash;&gt;
+        <additionalparam>-Xdoclint:none</additionalparam>-->
+
         <maven.compiler.target>1.8</maven.compiler.target>
         <maven.compiler.source>1.8</maven.compiler.source>
-        <version.shrinkwrap.resolvers>2.2.0</version.shrinkwrap.resolvers>
-        <additionalparam>-Xdoclint:none</additionalparam>
+
+        <version.shrinkwrap>2.2.4</version.shrinkwrap>
+        <version.arquillian>1.1.12.Final</version.arquillian>
+        <version.resteasy>3.0.19.Final</version.resteasy>
+        <version.org.slf4j>1.7.21</version.org.slf4j>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <version.jboss.bom>10.1.0.Final</version.jboss.bom>
+        <version.wildfly.maven.plugin>1.0.2.Final</version.wildfly.maven.plugin>
+        <version.jackson>2.7.4</version.jackson>
+
+
+
     </properties>
 
     <modules>
@@ -68,8 +78,6 @@
                 <version>${project.version}</version>
             </dependency>
 
-            <!-- Define the version of the EJB jar so that we don't need 
-                to repeat ourselves in every module -->
             <dependency>
                 <groupId>com.mmj.data</groupId>
                 <artifactId>mmj-ejb</artifactId>
@@ -77,8 +85,6 @@
                 <type>ejb</type>
             </dependency>
 
-            <!-- Define the version of the WAR so that we don't need to repeat 
-                ourselves in every module -->
             <dependency>
                 <groupId>com.mmj.data</groupId>
                 <artifactId>mmj-web</artifactId>
@@ -94,41 +100,58 @@
                 tools for your project, such as Arquillian for testing) and the jboss-javaee-6.0-with-hibernate 
                 stack you can read this as the JBoss stack of the Java EE 6 APIs, with extras 
                 from the Hibernate family of projects) -->
-            <dependency>
+            <!--<dependency>
                 <groupId>org.jboss.bom.eap</groupId>
                 <artifactId>jboss-javaee-6.0-with-tools</artifactId>
                 <version>${version.jboss.bom.eap}</version>
                 <type>pom</type>
                 <scope>import</scope>
-            </dependency>
+            </dependency>-->
 
             <dependency>
-                <groupId>org.jboss.bom.eap</groupId>
-                <artifactId>jboss-javaee-6.0-with-hibernate</artifactId>
-                <version>${version.jboss.bom.eap}</version>
+                <groupId>org.wildfly.bom</groupId>
+                <artifactId>wildfly-javaee7-with-tools</artifactId>
+                <version>${version.jboss.bom}</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
 
             <dependency>
+                <groupId>org.jboss.shrinkwrap.resolver</groupId>
+                <artifactId>shrinkwrap-resolver-bom</artifactId>
+                <version>${version.shrinkwrap}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
+
+            <!--<dependency>
+                <groupId>org.jboss.bom.eap</groupId>
+                <artifactId>jboss-javaee-6.0-with-hibernate</artifactId>
+                <version>${version.jboss.bom.eap}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>-->
+
+            <!--<dependency>
                 <groupId>javax.ws.rs</groupId>
                 <artifactId>jsr311-api</artifactId>
                 <version>1.1.1</version>
-            </dependency>
+            </dependency>-->
 
-            <dependency>
+           <!-- <dependency>
                 <groupId>com.google.code.gson</groupId>
                 <artifactId>gson</artifactId>
                 <version>${gson.version}</version>
-            </dependency>
+            </dependency>-->
 
             <dependency>
                 <groupId>org.slf4j</groupId>
                 <artifactId>slf4j-api</artifactId>
-                <version>${org.slf4j.version}</version>
+                <version>${version.org.slf4j}</version>
             </dependency>
 
-            <dependency>
+            <!--<dependency>
                 <groupId>org.hibernate</groupId>
                 <artifactId>hibernate-validator</artifactId>
                 <version>4.3.2.Final</version>
@@ -139,31 +162,25 @@
                         <artifactId>slf4j-api</artifactId>
                     </exclusion>
                 </exclusions>
-            </dependency>
+            </dependency>-->
 
             <!-- arquillian -->
-            <dependency>
-                <groupId>org.jboss.shrinkwrap.resolver</groupId>
-                <artifactId>shrinkwrap-resolver-bom</artifactId>
-                <version>2.2.0</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
+
 
             <dependency>
                 <groupId>org.jboss.arquillian</groupId>
                 <artifactId>arquillian-bom</artifactId>
-                <version>1.1.10.Final</version>
+                <version>1.1.11.Final</version>
                 <scope>import</scope>
                 <type>pom</type>
             </dependency>
 
-            <dependency>
+            <!--<dependency>
                 <groupId>org.jboss.resteasy</groupId>
                 <artifactId>resteasy-jackson-provider</artifactId>
                 <version>${resteasy.version}</version>
                 <scope>provided</scope>
-            </dependency>
+            </dependency>-->
 
             <!--<dependency>
                 <groupId>allegiant.util</groupId>
@@ -182,7 +199,7 @@
               -->
             <groupId>org.jboss.resteasy</groupId>
             <artifactId>resteasy-jaxrs</artifactId>
-            <version>${resteasy.version}</version>
+            <version>${version.resteasy}</version>
             <scope>provided</scope>
         </dependency>
 
@@ -192,14 +209,22 @@
             <scope>provided</scope>
         </dependency>
 
-        <dependency>
-            <!--Do not use javaee-api atifact, use jboss-javaee-all-6.0 -->
-            <!--javax.persistence, javax.ejb, org.hibernate.validator -->
+        <!--<dependency>
+            &lt;!&ndash;Do not use javaee-api atifact, use jboss-javaee-all-6.0 &ndash;&gt;
+            &lt;!&ndash;javax.persistence, javax.ejb, org.hibernate.validator &ndash;&gt;
             <groupId>org.jboss.spec</groupId>
             <artifactId>jboss-javaee-all-6.0</artifactId>
             <version>3.0.3.Final</version>
             <scope>provided</scope>
+        </dependency>-->
+
+        <dependency>
+            <groupId>org.jboss.spec</groupId>
+            <artifactId>jboss-javaee-all-7.0</artifactId>
+            <version>1.0.3.Final</version>
+            <scope>provided</scope>
         </dependency>
+
 
         <dependency>
             <groupId>org.apache.commons</groupId>
@@ -229,75 +254,87 @@
         <dependency>
             <groupId>org.jboss.resteasy</groupId>
             <artifactId>resteasy-jackson-provider</artifactId>
+            <version>${version.resteasy}</version>
         </dependency>
 
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-core</artifactId>
-            <version>2.7.7</version>
+            <version>${version.jackson}</version>
+            <scope>provided</scope>
         </dependency>
 
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-annotations</artifactId>
-            <version>2.7.7</version>
+            <version>${version.jackson}</version>
+            <scope>provided</scope>
         </dependency>
 
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-databind</artifactId>
-            <version>2.7.7</version>
+            <version>${version.jackson}</version>
+            <scope>provided</scope>
         </dependency>
-
-        <!--<dependency>
-            <groupId>com.fasterxml.jackson.module</groupId>
-            <artifactId>jackson-module-jaxb-annotations</artifactId>
-            <version>2.7.7</version>
-        </dependency>-->
 
         <dependency>
             <groupId>com.fasterxml.jackson.datatype</groupId>
-            <artifactId>jackson-datatype-jsr310</artifactId>
-            <version>2.7.7</version>
+            <artifactId>jackson-datatype-hibernate5</artifactId>
+            <version>${version.jackson}</version>
         </dependency>
-
-        <!--<dependency>
-            <groupId>com.fasterxml.jackson.datatype</groupId>
-            <artifactId>jackson-datatype-guava</artifactId>
-            <version>2.7.7</version>
-        </dependency>-->
 
         <dependency>
             <groupId>com.fasterxml.jackson.jaxrs</groupId>
             <artifactId>jackson-jaxrs-json-provider</artifactId>
-            <version>2.7.7</version>
+            <version>${version.jackson}</version>
         </dependency>
 
         <dependency>
             <groupId>com.fasterxml.jackson.datatype</groupId>
-            <artifactId>jackson-datatype-joda</artifactId>
-            <version>2.7.7</version>
+            <artifactId>jackson-datatype-jsr310</artifactId>
+            <version>${version.jackson}</version>
         </dependency>
 
-        <dependency>
-            <groupId>com.fasterxml.jackson.jaxrs</groupId>
-            <artifactId>jackson-jaxrs-base</artifactId>
-            <version>2.7.7</version>
-        </dependency>
 
         <!-- JSR-303 (Bean Validation) Implementation -->
         <!-- Provides portable constraints such as @Email -->
-        <!-- Hibernate Validator is shipped in JBoss EAP 6 -->
+        <!-- Hibernate Validator is shipped in Wildfly -->
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-validator</artifactId>
+            <version>5.2.4.Final</version>
             <scope>provided</scope>
-            <exclusions>
+            <!--<exclusions>
                 <exclusion>
                     <groupId>org.slf4j</groupId>
                     <artifactId>slf4j-api</artifactId>
                 </exclusion>
-            </exclusions>
+            </exclusions>-->
+        </dependency>
+
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.12</version>
+        </dependency>
+
+       <!-- <dependency>
+            <groupId>javax.validation</groupId>
+            <artifactId>validation-api</artifactId>
+            <version>1.1.0.Final</version>
+        </dependency> -->
+
+
+        <dependency>
+            <!--The form of validation mandated by the JAX-RS 2.0 specification, based on Bean Validation 1.1, is supported by the RESTEasy module
+            resteasy-validator-provider-11, which produces the artifact resteasy-validator-provider-11-<version>.jar.
+            Validation is turned on by default (assuming resteasy-validator-provider-11-<version>.jar is available),
+            though parameter and return value validation can be turned off or modified in the validation.xml configuration file.
+            See the Hibernate Validator documentation for the details. Wildfly 8.x will ship with Hibernate Validator 5.x.-->
+            <groupId>org.jboss.resteasy</groupId>
+            <artifactId>resteasy-validator-provider-11</artifactId>
+            <version>3.0.19.Final</version>
         </dependency>
 
     </dependencies>

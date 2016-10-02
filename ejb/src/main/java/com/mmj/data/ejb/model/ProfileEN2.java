@@ -23,11 +23,11 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-@Entity
+/*@Entity
 @Table(name = "profile",
         uniqueConstraints=
-        @UniqueConstraint(name = "UQ_EMAIL", columnNames={"email"}))
-public class ProfileEN implements Serializable {
+        @UniqueConstraint(name = "UQ_EMAIL", columnNames={"email"}))*/
+public class ProfileEN2 implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
@@ -61,6 +61,10 @@ public class ProfileEN implements Serializable {
     @Length(min = 1, max = 30)
     @NotNull
     private String lastName;
+
+    @Temporal(TemporalType.DATE)
+    @NotNull
+    private Date dob;
 
     @Column(name = "phone", length = 30)
     //@NotNull
@@ -144,7 +148,7 @@ public class ProfileEN implements Serializable {
     /**
      * are you generally hot/cold/normal - for hot or cold, time increases by 10%
      */
-    private String hotColdNormal;
+    private int hotColdNormal;
 
     @Column(name = "amount_nicotine_day")
     @NotNull
@@ -160,23 +164,30 @@ public class ProfileEN implements Serializable {
      */
     private Boolean hadMenopause;
 
+    @ManyToOne(cascade = CascadeType.DETACH)
     @NotNull
-    private Integer ageRange;
+    private QuestionRangeEN ageRange;
 
+    @ManyToOne(cascade = CascadeType.DETACH)
     @NotNull
-    private Integer sleep;
+    private QuestionRangeEN sleep;
 
+    @ManyToOne(cascade = CascadeType.DETACH)
     @NotNull
-    private Integer caffeineDrinks;
+    private QuestionRangeEN caffeineDrinks;
 
+    @ManyToOne(cascade = CascadeType.DETACH)
     @NotNull
-    private Integer bowelMovement;
+    private QuestionRangeEN bowelMovement;
 
+    @ManyToOne(cascade = CascadeType.DETACH)
     @NotNull
-    private Integer activityLevel;
+    private QuestionRangeEN activityLevel;
 
+    @ManyToOne(cascade = CascadeType.DETACH)
     @NotNull
-    private Integer bodyfat;
+    private QuestionRangeEN bodyfat;
+
 
     public Long getId() {
         return id;
@@ -184,14 +195,6 @@ public class ProfileEN implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public List<SurveyEN> getSurveys() {
-        return surveys;
-    }
-
-    public void setSurveys(List<SurveyEN> surveys) {
-        this.surveys = surveys;
     }
 
     public String getEmail() {
@@ -226,6 +229,14 @@ public class ProfileEN implements Serializable {
         this.lastName = lastName;
     }
 
+    public Date getDob() {
+        return dob;
+    }
+
+    public void setDob(Date dob) {
+        this.dob = dob;
+    }
+
     public String getPhone() {
         return phone;
     }
@@ -254,23 +265,23 @@ public class ProfileEN implements Serializable {
         return score;
     }
 
-    public void setScore(BigDecimal score) {
+    public void  setScore(BigDecimal score) {
         this.score = score;
     }
 
-    public Boolean getOnPrescriptionMeds() {
+    public boolean getOnPrescriptionMeds() {
         return onPrescriptionMeds;
     }
 
-    public void setOnPrescriptionMeds(Boolean onPrescriptionMeds) {
+    public void setOnPrescriptionMeds(boolean onPrescriptionMeds) {
         this.onPrescriptionMeds = onPrescriptionMeds;
     }
 
-    public Boolean getVegetarian() {
+    public boolean getVegetarian() {
         return vegetarian;
     }
 
-    public void setVegetarian(Boolean vegetarian) {
+    public void setVegetarian(boolean vegetarian) {
         this.vegetarian = vegetarian;
     }
 
@@ -306,35 +317,35 @@ public class ProfileEN implements Serializable {
         this.avgOuncePotThcWeek = avgOuncePotThcWeek;
     }
 
-    public Boolean getPreferSalivas() {
+    public boolean getPreferSalivas() {
         return preferSalivas;
     }
 
-    public void setPreferSalivas(Boolean preferSalivas) {
+    public void setPreferSalivas(boolean preferSalivas) {
         this.preferSalivas = preferSalivas;
     }
 
-    public Boolean getChildren() {
+    public boolean getChildren() {
         return children;
     }
 
-    public void setChildren(Boolean children) {
+    public void setChildren(boolean children) {
         this.children = children;
     }
 
-    public Boolean getGeneticItems() {
+    public boolean getGeneticItems() {
         return geneticItems;
     }
 
-    public void setGeneticItems(Boolean geneticItems) {
+    public void setGeneticItems(boolean geneticItems) {
         this.geneticItems = geneticItems;
     }
 
-    public String getHotColdNormal() {
+    public int getHotColdNormal() {
         return hotColdNormal;
     }
 
-    public void setHotColdNormal(String hotColdNormal) {
+    public void setHotColdNormal(int hotColdNormal) {
         this.hotColdNormal = hotColdNormal;
     }
 
@@ -346,59 +357,59 @@ public class ProfileEN implements Serializable {
         this.amountNicotineDay = amountNicotineDay;
     }
 
-    public Boolean getHadMenopause() {
+    public boolean getHadMenopause() {
         return hadMenopause;
     }
 
-    public void setHadMenopause(Boolean hadMenopause) {
+    public void setHadMenopause(boolean hadMenopause) {
         this.hadMenopause = hadMenopause;
     }
 
-    public Integer getAgeRange() {
+    public QuestionRangeEN getAgeRange() {
         return ageRange;
     }
 
-    public void setAgeRange(Integer ageRange) {
+    public void setAgeRange(QuestionRangeEN ageRange) {
         this.ageRange = ageRange;
     }
 
-    public Integer getSleep() {
+    public QuestionRangeEN getSleep() {
         return sleep;
     }
 
-    public void setSleep(Integer sleep) {
+    public void setSleep(QuestionRangeEN sleep) {
         this.sleep = sleep;
     }
 
-    public Integer getCaffeineDrinks() {
+    public QuestionRangeEN getCaffeineDrinks() {
         return caffeineDrinks;
     }
 
-    public void setCaffeineDrinks(Integer caffeineDrinks) {
+    public void setCaffeineDrinks(QuestionRangeEN caffeineDrinks) {
         this.caffeineDrinks = caffeineDrinks;
     }
 
-    public Integer getBowelMovement() {
+    public QuestionRangeEN getBowelMovement() {
         return bowelMovement;
     }
 
-    public void setBowelMovement(Integer bowelMovement) {
+    public void setBowelMovement(QuestionRangeEN bowelMovement) {
         this.bowelMovement = bowelMovement;
     }
 
-    public Integer getActivityLevel() {
+    public QuestionRangeEN getActivityLevel() {
         return activityLevel;
     }
 
-    public void setActivityLevel(Integer activityLevel) {
+    public void setActivityLevel(QuestionRangeEN activityLevel) {
         this.activityLevel = activityLevel;
     }
 
-    public Integer getBodyfat() {
+    public QuestionRangeEN getBodyfat() {
         return bodyfat;
     }
 
-    public void setBodyfat(Integer bodyfat) {
+    public void setBodyfat(QuestionRangeEN bodyfat) {
         this.bodyfat = bodyfat;
     }
 }

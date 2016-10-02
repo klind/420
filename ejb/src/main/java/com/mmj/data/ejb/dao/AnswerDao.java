@@ -18,7 +18,7 @@ public class AnswerDao {
     @PersistenceContext()
     private EntityManager em;
 
-    public void createAnswer(AnswerEN answerEN) {
+    public void saveAnswer(AnswerEN answerEN) {
         try {
             em.persist(answerEN);
         } catch (Exception e) {
@@ -36,5 +36,13 @@ public class AnswerDao {
             throw new SystemException("Could not get AnswerEN", e);
         }
         return result;
+    }
+
+    public boolean answerExistForProfileAndSurvey(Long profileId, Long surveyId) {
+        Long count = (Long) em.createQuery("SELECT COUNT(p.id) FROM AnswerEN p WHERE p.profile.id = :profileId and p.survey.id = :surveyId")
+                .setParameter("profileId", profileId)
+                .setParameter("surveyId", surveyId)
+                .getSingleResult();
+        return count > 0;
     }
 }

@@ -7,6 +7,7 @@ public class SurveyDTO implements Serializable {
 
     private Long id;
     private String name;
+    private boolean answered;
 
     public Long getId() {
         return id;
@@ -22,5 +23,13 @@ public class SurveyDTO implements Serializable {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public boolean isAnswered() {
+        return answered;
+    }
+
+    public void setAnswered(boolean answered) {
+        this.answered = answered;
     }
 }

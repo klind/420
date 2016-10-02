@@ -9,6 +9,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "answer")
@@ -18,6 +20,8 @@ public class AnswerEN {
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    private LocalDate date;
 
     @Column(length = 50)
     private String answer;
@@ -81,5 +85,13 @@ public class AnswerEN {
 
     public void setAnswerQuestionRange(QuestionRangeEN answerQuestionRange) {
         this.answerQuestionRange = answerQuestionRange;
+    }
+
+    public LocalDate getDate() {
+        return date;
+    }
+
+    public void setDate(LocalDate date) {
+        this.date = date;
     }
 }

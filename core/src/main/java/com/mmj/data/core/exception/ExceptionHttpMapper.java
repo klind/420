@@ -1,8 +1,8 @@
 package com.mmj.data.core.exception;
 
 import com.mmj.data.core.util.JsonUtils;
-import org.hibernate.validator.method.MethodConstraintViolation;
-import org.hibernate.validator.method.MethodConstraintViolationException;
+//import org.hibernate.validator.method.MethodConstraintViolation;
+//import org.hibernate.validator.method.MethodConstraintViolationException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -46,7 +46,8 @@ public class ExceptionHttpMapper implements ExceptionMapper<Exception> {
             } else {
                 response = Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(JsonUtils.serialize(e.getMessage())).build();
             }
-        } else if (exception instanceof ValidationException) {
+        }
+       /* else if (exception instanceof ValidationException) {
             if (exception instanceof ValidationException) {
                 ValidationException validationException = (ValidationException) exception;
                 BusinessException businessException = new BusinessException();
@@ -70,6 +71,9 @@ public class ExceptionHttpMapper implements ExceptionMapper<Exception> {
                 String json = JsonUtils.serialize(exception.getStackTrace());
                 response = Response.status(Response.Status.BAD_REQUEST).entity(json).build();
             }
+        } */
+        else if (exception instanceof org.jboss.resteasy.spi.DefaultOptionsMethodException) {
+            response = Response.status(Response.Status.OK).build();
         } else {
             // When catching an Exception log an error.
             LOG.error(exception.getMessage(), exception);

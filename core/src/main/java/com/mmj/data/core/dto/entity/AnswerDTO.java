@@ -1,16 +1,21 @@
 package com.mmj.data.core.dto.entity;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+import javax.validation.constraints.NotNull;
+import java.time.LocalDate;
+
 public class AnswerDTO {
 
     private Long id;
-    private String answer;
+    private LocalDate date;
+    @NotNull
     private Long profileId;
+    @NotNull
     private Long surveyId;
     private Long questionId;
-    private Long questionRangeId;
-    /*private ProfileDTO profile;
-    private SurveyDTO survey;
-    private QuestionDTO question;*/
+    @JsonProperty(value = "surveyAnswer")
+    private SurveyAnswerDTO surveyAnswerDTO;
 
     public Long getId() {
         return id;
@@ -18,14 +23,6 @@ public class AnswerDTO {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public String getAnswer() {
-        return answer;
-    }
-
-    public void setAnswer(String answer) {
-        this.answer = answer;
     }
 
     public Long getProfileId() {
@@ -44,6 +41,14 @@ public class AnswerDTO {
         this.surveyId = surveyId;
     }
 
+    public SurveyAnswerDTO getSurveyAnswerDTO() {
+        return surveyAnswerDTO;
+    }
+
+    public void setSurveyAnswerDTO(SurveyAnswerDTO surveyAnswerDTO) {
+        this.surveyAnswerDTO = surveyAnswerDTO;
+    }
+
     public Long getQuestionId() {
         return questionId;
     }
@@ -52,11 +57,12 @@ public class AnswerDTO {
         this.questionId = questionId;
     }
 
-    public Long getQuestionRangeId() {
-        return questionRangeId;
+    public LocalDate getDate() {
+        return date;
     }
 
-    public void setQuestionRangeId(Long questionRangeId) {
-        this.questionRangeId = questionRangeId;
+    public void setDate(LocalDate date) {
+        this.date = date;
     }
 }
+
