@@ -1,36 +1,30 @@
 package com.mmj.data.web.webservice;
 
-import com.mmj.data.core.LoginDTO;
 import com.mmj.data.core.dto.entity.AnswerDTO;
 import com.mmj.data.core.dto.entity.ProfileDTO;
 import com.mmj.data.core.dto.entity.QuestionDTO;
 import com.mmj.data.core.dto.entity.QuestionRangeDTO;
-import com.mmj.data.core.dto.entity.RegisterDTO;
 import com.mmj.data.core.dto.entity.SurveyDTO;
 import com.mmj.data.core.exception.BusinessException;
 import com.mmj.data.core.exception.NotFoundException;
 import com.mmj.data.core.util.JsonUtils;
-import com.mmj.data.ejb.dao.QuestionDao;
 import com.mmj.data.ejb.session.AnswerSB;
 import com.mmj.data.ejb.session.ProfileSB;
 import com.mmj.data.ejb.session.QuestionRangesSB;
 import com.mmj.data.ejb.session.QuestionSB;
 import com.mmj.data.ejb.session.SurveySB;
-import io.swagger.annotations.ApiParam;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
-import javax.validation.Valid;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.SecurityContext;
-import java.util.ArrayList;
 import java.util.List;
 
 @Path("/")
@@ -40,7 +34,8 @@ public class MMJRestWebservice implements MMJRestWebserviceI {
     private static final Logger LOG = LoggerFactory.getLogger(MMJRestWebservice.class);
 
     @Context
-    private SecurityContext securityContext;;
+    private SecurityContext securityContext;
+    ;
 
     @Inject
     private ProfileSB profileSB;
@@ -157,9 +152,9 @@ public class MMJRestWebservice implements MMJRestWebserviceI {
     @Override
     public Response createAnswer(AnswerDTO answerDTO, HttpServletRequest servletRequest) throws BusinessException {
         LOG.info("Saving answer {}.", answerDTO);
-        answerSB.createAnswer(answerDTO);
+        AnswerDTO answer = answerSB.createAnswer(answerDTO);
         LOG.debug("Saved answer");
-        return Response.status(Response.Status.OK).build();
+        return Response.status(Response.Status.OK).entity(answer).build();
     }
 
    /* @Override

@@ -294,12 +294,12 @@
                         <apiSource>
                             <locations>com.mmj.data.web.webservice</locations>
                             <schemes>http</schemes>
-                            <basePath>/g4tc/v1/api</basePath>
+                            <basePath>/mmsservice/api</basePath>
                             <info>
-                                <title>G4 Travel Center</title>
+                                <title>Medical Marijuana Survey</title>
                                 <version>${project.version}</version>
                                 <description>
-                                    G4 Travel Center
+
                                 </description>
                             </info>
                             <swaggerDirectory>${project.build.directory}/${project.artifactId}-${project.version}/docs/ui</swaggerDirectory>

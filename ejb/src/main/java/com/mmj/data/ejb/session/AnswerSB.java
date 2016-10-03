@@ -56,7 +56,7 @@ public class AnswerSB {
     }
 
     @TransactionAttribute(TransactionAttributeType.REQUIRED)
-    public void createAnswer(AnswerDTO answerDTO) throws BusinessException {
+    public AnswerDTO createAnswer(AnswerDTO answerDTO) throws BusinessException {
 
         if (answerDao.answerExistForProfileAndSurvey(answerDTO.getProfileId(), answerDTO.getSurveyId())) {
             throw new BusinessException("This survey was already answered");
@@ -126,5 +126,7 @@ public class AnswerSB {
         questionEN = questionDao.getQuestionByText("eat");
         answerEN.setQuestion(questionEN);
         answerDao.saveAnswer(answerEN);
+
+        return answerDTO;
     }
 }

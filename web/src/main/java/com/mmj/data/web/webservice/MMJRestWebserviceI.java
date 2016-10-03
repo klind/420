@@ -28,9 +28,6 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 
-/**
- * Interface for Rest Webservices for G4 Travel Center. Used for CRUD operations that help manage employee travel benefits for them and their passengers.
- */
 @Api(value = "/", description = "MMJ")
 @Produces(MediaType.APPLICATION_JSON)
 public interface MMJRestWebserviceI {

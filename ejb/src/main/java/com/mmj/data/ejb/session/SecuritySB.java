@@ -9,6 +9,7 @@ import com.mmj.data.core.exception.AlreadyExistsException;
 import com.mmj.data.core.exception.BusinessException;
 import com.mmj.data.core.exception.NotAuthorizedException;
 import com.mmj.data.core.exception.NotFoundException;
+import com.mmj.data.core.util.SessionIdentifierGenerator;
 import com.mmj.data.core.util.TokenStorage;
 import com.mmj.data.ejb.dao.ProfileDao;
 import com.mmj.data.ejb.model.ProfileEN;
@@ -39,6 +40,9 @@ public class SecuritySB {
     @Inject
     private Transformer transformer;
 
+    @Inject
+    private SessionIdentifierGenerator sessionIdentifierGenerator;
+
     public TokenDTO register(RegisterDTO registerDTO) throws BusinessException {
 
         if(profileDao.profileExistsByEmail(registerDTO.getEmail())){
@@ -60,10 +64,11 @@ public class SecuritySB {
         profilePasswordEN.setPassword(generatedSecuredPasswordHash);
         profilePasswordEN.setRole("user");
         profileDao.saveNewProfilePassword(profilePasswordEN);
-        String token = "thisismytoken";
+
+        String token = sessionIdentifierGenerator.nextSessionId();
         TokenStorage.addToken(token);
         tokenDTO = new TokenDTO();
-        tokenDTO.setToken("thisismytoken");
+        tokenDTO.setToken(token);
         return tokenDTO;
     }
 
@@ -91,7 +96,7 @@ public class SecuritySB {
                 throw new NotAuthorizedException("");
             }
             if (SCryptUtil.check(password, profilePasswordDTO.getHashedPassword())) {
-                String token = "thisismytoken";
+                String token = sessionIdentifierGenerator.nextSessionId();
                 TokenStorage.addToken(token);
                 tokenDTO = new TokenDTO();
                 tokenDTO.setToken(token);
